@@ -6,7 +6,7 @@
         <artifactId>aivms-parent</artifactId>
         <groupId>com.qlhx</groupId>
         <version>1.0.0</version>
-        <relativePath>../aivms-parent/pom.xml</relativePath>
+        <relativePath>../aivms5-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
