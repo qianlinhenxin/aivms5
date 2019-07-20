@@ -3,16 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>aivms-parent</artifactId>
+        <artifactId>aivms5-parent</artifactId>
         <groupId>com.qlhx</groupId>
         <version>1.0.0</version>
         <relativePath>../aivms5-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>aivms5-register-center</artifactId>
-
     <packaging>pom</packaging>
+
     <modules>
         <module>center-one</module>
         <module>center-three</module>
