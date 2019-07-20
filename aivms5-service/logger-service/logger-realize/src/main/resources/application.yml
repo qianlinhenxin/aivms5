@@ -1,0 +1,32 @@
+server:
+  port: 8097
+ 
+spring:
+  application:
+    name: service-logger
+  profiles:
+      include: amq
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/test
+  datasource:
+    url: jdbc:mysql://192.168.99.35:3307/aivms5?useUnicode=truecharacterEncoding=UTF-8&userSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+#注册中心指向start    
+eureka: 
+  instance:
+    instance-id: service-logger
+    appname: ${spring.application.name}
+  client: 
+    service-url: 
+      defaultZone: http://127.0.0.1:8761/eureka/
+    #register-with-eureka: false
+   # fetch-registry: false
+      
+      
+
+mybatis: 
+  mapper-locations: classpath:com/qlhx/mapper/*.xml

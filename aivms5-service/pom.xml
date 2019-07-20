@@ -20,6 +20,7 @@
         <module>door-service</module>
         <module>facedevice-service</module>
         <module>gateway-service</module>
+        <module>logger-service</module>
     </modules>
 
 
