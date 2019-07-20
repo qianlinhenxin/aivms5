@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.qlhx</groupId>
-            <artifactId>aivms-base</artifactId>
+            <artifactId>aivms5-base</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
