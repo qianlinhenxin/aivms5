@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qlhx.service.auth.realize.mapper.TestMapper">
+
+    <resultMap id="baseResultMap" type="com.qlhx.service.auth.realize.bean.Test">
+        <id column="ID" property="id" javaType="java.lang.Long" jdbcType="BIGINT"/>
+        <!--元数据-->
+        <result column="CREATE_USER" property="createUser" jdbcType="BIGINT"/>
+        <result column="CREATE_NAME" property="createName" jdbcType="VARCHAR"/>
+        <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="CREATE_IP"   property="createIp"   jdbcType="VARCHAR"/>
+        <result column="UPDATE_USER" property="updateUser" jdbcType="BIGINT"/>
+        <result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR"/>
+        <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_IP"   property="updateIp"   jdbcType="VARCHAR"/>
+        <result column="VERSION"     property="version"    jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="BASE_SQL">
+        id,
+        CREATE_USER,
+        CREATE_NAME,
+        CREATE_DATE,
+        CREATE_IP,
+        UPDATE_USER,
+        UPDATE_NAME,
+        UPDATE_DATE,
+        UPDATE_IP,
+        VERSION
+    </sql>
+
+    <sql id="INSERT_SQL">
+        CREATE_USER,
+        CREATE_NAME,
+        CREATE_DATE,
+        CREATE_IP,
+        UPDATE_USER,
+        UPDATE_NAME,
+        UPDATE_DATE,
+        UPDATE_IP,
+        VERSION
+    </sql>
+
+    <select id="find" parameterType="com.qlhx.service.auth.realize.bean.Test" resultMap="baseResultMap"  useCache="false">
+        SELECT
+        <include refid="BASE_SQL"></include>
+        FROM
+        base_dic
+        <where>
+            <if test="id != null">
+                AND
+                ID = #{codeType,jdbcType=BIGINT}
+            </if>
+            <if test="version != null">
+                AND
+                VERSION = #{version,jdbcType=BIGINT}
+            </if>
+        </where>
+        <if test="pageNum != null and pageNum>0 and pageSize != null and pageSize>0">
+            <bind name="pageNum2" value="(pageNum-1)*pageSize"/>
+            LIMIT #{pageNum2},#{pageSize}
+        </if>
+    </select>
+
+    <select id="findByParams" parameterType="java.util.Map" resultMap="baseResultMap">
+        SELECT
+        <include refid="BASE_SQL"></include>
+        FROM
+        base_dic
+        <where>
+            <if test="id != null">
+                AND
+                ID = #{codeType,jdbcType=BIGINT}
+            </if>
+            <if test="version != null">
+                AND
+                VERSION = #{version,jdbcType=BIGINT}
+            </if>
+            <if test="createUser != null ">
+                AND
+                CREATE_USER = #{createUser}
+            </if>
+            <if test="createName != null and createName != '' ">
+                AND
+                CREATE_NAME LIKE CONCAT('%',#{createName},'%')
+            </if>
+            <if test="createDate != null ">
+                AND
+                CREATE_DATE = #{createDate}
+            </if>
+            <if test="createIp != null and createIp != '' ">
+                AND
+                CREATE_IP = #{createIp}
+            </if>
+            <if test="updateUser != null ">
+                AND
+                UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateName != null and updateName != '' ">
+                AND
+                UPDATE_NAME LIKE CONCAT('%',#{updateName},'%')
+            </if>
+            <if test="updateDate != null ">
+                AND
+                UPDATE_DATE = #{updateDate}
+            </if>
+            <if test="updateIp != null and updateIp != '' ">
+                AND
+                UPDATE_IP = #{createIp}
+            </if>
+        </where>
+        <if test="sort == 'desc'">
+            ORDER BY ID DESC
+        </if>
+        <if test="sort == 'asc'">
+            ORDER BY ID ASC
+        </if>
+    </select>
+
+    <select id="findById" resultMap="baseResultMap" parameterType="java.lang.Long">
+        SELECT
+            <include refid="BASE_SQL"></include>
+        FROM
+            test
+        WHERE
+            id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="findByPage" parameterType="java.util.Map" resultMap="baseResultMap"  useCache="false">
+        SELECT
+            <include refid="BASE_SQL"></include>
+        FROM
+            test
+        <where>
+            <if test="id != null">
+                AND
+                ID = #{codeType,jdbcType=BIGINT}
+            </if>
+            <if test="version != null">
+                AND
+                VERSION = #{version,jdbcType=BIGINT}
+            </if>
+            <if test="createUser != null ">
+                AND
+                CREATE_USER = #{createUser}
+            </if>
+            <if test="createName != null and createName != '' ">
+                AND
+                CREATE_NAME LIKE CONCAT('%',#{createName},'%')
+            </if>
+            <if test="createDate != null ">
+                AND
+                CREATE_DATE = #{createDate}
+            </if>
+            <if test="createIp != null and createIp != '' ">
+                AND
+                CREATE_IP = #{createIp}
+            </if>
+            <if test="updateUser != null ">
+                AND
+                UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateName != null and updateName != '' ">
+                AND
+                UPDATE_NAME LIKE CONCAT('%',#{updateName},'%')
+            </if>
+            <if test="updateDate != null ">
+                AND
+                UPDATE_DATE = #{updateDate}
+            </if>
+            <if test="updateIp != null and updateIp != '' ">
+                AND
+                UPDATE_IP = #{createIp}
+            </if>
+        </where>
+        <if test="pageNum != null and pageNum>0 and pageSize != null and pageSize>0">
+            <bind name="pageNum2" value="(pageNum-1)*pageSize"/>
+            LIMIT #{pageNum2},#{pageSize}
+        </if>
+    </select>
+
+    <select id="findAll" parameterType="java.util.Map" resultMap="baseResultMap"  useCache="false">
+        SELECT
+            <include refid="BASE_SQL"></include>
+        FROM
+            test
+    </select>
+
+    <select id="findByPage2" parameterType="com.qlhx.service.auth.realize.bean.Test" resultMap="baseResultMap"  useCache="false">
+        SELECT
+        <include refid="BASE_SQL"></include>
+        FROM
+        base_dic
+        <where>
+            <if test="id != null">
+                AND
+                ID = #{codeType,jdbcType=BIGINT}
+            </if>
+            <if test="version != null">
+                AND
+                VERSION = #{version,jdbcType=BIGINT}
+            </if>
+            <if test="createUser != null ">
+                AND
+                CREATE_USER = #{createUser}
+            </if>
+            <if test="createName != null and createName != '' ">
+                AND
+                CREATE_NAME LIKE CONCAT('%',#{createName},'%')
+            </if>
+            <if test="createDate != null ">
+                AND
+                CREATE_DATE = #{createDate}
+            </if>
+            <if test="createIp != null and createIp != '' ">
+                AND
+                CREATE_IP = #{createIp}
+            </if>
+            <if test="updateUser != null ">
+                AND
+                UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateName != null and updateName != '' ">
+                AND
+                UPDATE_NAME LIKE CONCAT('%',#{updateName},'%')
+            </if>
+            <if test="updateDate != null ">
+                AND
+                UPDATE_DATE = #{updateDate}
+            </if>
+            <if test="updateIp != null and updateIp != '' ">
+                AND
+                UPDATE_IP = #{createIp}
+            </if>
+        </where>
+        <if test="pageNum != null and pageNum>0 and pageSize != null and pageSize>0">
+            <bind name="pageNum2" value="(pageNum-1)*pageSize"/>
+            LIMIT #{pageNum2},#{pageSize}
+        </if>
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true" keyColumn="id" parameterType="com.qlhx.service.auth.realize.bean.Test">
+        INSERT INTO
+        base_dic
+            <include refid="INSERT_SQL"></include>
+        values (
+            #{createUser,jdbcType=BIGINT},
+            #{createName,jdbcType=VARCHAR},
+            #{createDate,jdbcType=TIMESTAMP},
+            #{createIp,jdbcType=VARCHAR},
+            #{version,jdbcType=BIGINT}
+        )
+    </insert>
+
+    <insert id="insertList" keyProperty="id" useGeneratedKeys="true" keyColumn="id" parameterType="java.util.List">
+        INSERT INTO test
+            <include refid="INSERT_SQL"></include>
+        values
+            <foreach collection="list" item="model" index="index"
+                     separator=",">
+                (
+                    #{model.createUser,jdbcType=BIGINT},
+                    #{model.createName,jdbcType=VARCHAR},
+                    #{model.createDate,jdbcType=TIMESTAMP},
+                    #{model.createIp,jdbcType=VARCHAR},
+                    #{model.version,jdbcType=BIGINT}
+                )
+            </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.qlhx.service.auth.realize.bean.Test">
+            UPDATE
+                test
+                    SET
+                        UPDATE_USER = #{updateUser,jdbcType=BIGINT},
+                        UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+                        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
+                        UPDATE_IP   =  #{updateIp,jdbcType=VARCHAR},
+                        VERSION = VERSION+1
+                    WHERE
+                        ID = #{id,jdbcType=BIGINT}
+                        AND
+                        VERSION = #{version,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateIgnoreNull" parameterType="com.qlhx.service.auth.realize.bean.Test">
+            UPDATE
+                test
+                    <set>
+                        <if test="updateUser != null">
+                            UPDATE_USER = #{updateUser,jdbcType=BIGINT},
+                        </if>
+                        <if test="updateName != null">
+                            UPDATE_NAME = #{updateName,jdbcType=VARCHAR},
+                        </if>
+                    </set>
+                WHERE
+                    ID = #{id,jdbcType=BIGINT}
+                    AND
+                    VERSION = #{version,jdbcType=BIGINT}
+    </update>
+
+    <delete id="delete" parameterType="com.qlhx.service.auth.realize.bean.Test">
+        DELETE FROM
+            test
+        <where>
+            <if test="id != null">
+                AND
+                ID = #{codeType,jdbcType=BIGINT}
+            </if>
+            <if test="version != null">
+                AND
+                VERSION = #{version,jdbcType=BIGINT}
+            </if>
+            <if test="createUser != null ">
+                AND
+                CREATE_USER = #{createUser}
+            </if>
+            <if test="createName != null and createName != '' ">
+                AND
+                CREATE_NAME LIKE CONCAT('%',#{createName},'%')
+            </if>
+            <if test="createDate != null ">
+                AND
+                CREATE_DATE = #{createDate}
+            </if>
+            <if test="createIp != null and createIp != '' ">
+                AND
+                CREATE_IP = #{createIp}
+            </if>
+            <if test="updateUser != null ">
+                AND
+                UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateName != null and updateName != '' ">
+                AND
+                UPDATE_NAME LIKE CONCAT('%',#{updateName},'%')
+            </if>
+            <if test="updateDate != null ">
+                AND
+                UPDATE_DATE = #{updateDate}
+            </if>
+            <if test="updateIp != null and updateIp != '' ">
+                AND
+                UPDATE_IP = #{createIp}
+            </if>
+        </where>
+    </delete>
+
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM
+            test
+        WHERE
+            ID = #{codeType,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByParams" parameterType="java.util.Map">
+        DELETE FROM
+            test
+        <where>
+            <if test="id != null">
+                AND
+                ID = #{codeType,jdbcType=BIGINT}
+            </if>
+            <if test="version != null">
+                AND
+                VERSION = #{version,jdbcType=BIGINT}
+            </if>
+            <if test="createUser != null ">
+                AND
+                CREATE_USER = #{createUser}
+            </if>
+            <if test="createName != null and createName != '' ">
+                AND
+                CREATE_NAME LIKE CONCAT('%',#{createName},'%')
+            </if>
+            <if test="createDate != null ">
+                AND
+                CREATE_DATE = #{createDate}
+            </if>
+            <if test="createIp != null and createIp != '' ">
+                AND
+                CREATE_IP = #{createIp}
+            </if>
+            <if test="updateUser != null ">
+                AND
+                UPDATE_USER = #{updateUser}
+            </if>
+            <if test="updateName != null and updateName != '' ">
+                AND
+                UPDATE_NAME LIKE CONCAT('%',#{updateName},'%')
+            </if>
+            <if test="updateDate != null ">
+                AND
+                UPDATE_DATE = #{updateDate}
+            </if>
+            <if test="updateIp != null and updateIp != '' ">
+                AND
+                UPDATE_IP = #{createIp}
+            </if>
+        </where>
+    </delete>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT count(*) FROM test
+    </select>
+
+</mapper>

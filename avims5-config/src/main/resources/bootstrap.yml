@@ -1,0 +1,6 @@
+encrypt:
+  keyStore:
+    location: classpath:/config-server.jks   # server.jks的配置文件的路径
+    password: 81196xigexb      #store的密码
+    alias: config-server
+    secret: 81196xigexb      # keypass
