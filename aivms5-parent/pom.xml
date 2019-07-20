@@ -13,9 +13,9 @@
     <modules>
         <module>../aivms5-register-center</module>
         <module>../aivms5-web</module>
-        <module>../aivms-base</module>
-        <module>../aivms-service</module>
+        <module>../aivms5-service</module>
         <module>../avims5-config</module>
+        <module>../aivms5-base</module>
     </modules>
 
     <properties>
@@ -199,21 +199,21 @@
                 <version>${http-client}</version>
             </dependency>
             <!--Hadoop HDFS-->
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-hdfs</artifactId>
-                <version>${hadoop-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-common</artifactId>
-                <version>${hadoop-version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-client</artifactId>
-                <version>${hadoop-version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.apache.hadoop</groupId>-->
+<!--                <artifactId>hadoop-hdfs</artifactId>-->
+<!--                <version>${hadoop-version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.apache.hadoop</groupId>-->
+<!--                <artifactId>hadoop-common</artifactId>-->
+<!--                <version>${hadoop-version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>org.apache.hadoop</groupId>-->
+<!--                <artifactId>hadoop-client</artifactId>-->
+<!--                <version>${hadoop-version}</version>-->
+<!--            </dependency>-->
             <!--spring-->
             <dependency>
                 <groupId>org.springframework</groupId>
