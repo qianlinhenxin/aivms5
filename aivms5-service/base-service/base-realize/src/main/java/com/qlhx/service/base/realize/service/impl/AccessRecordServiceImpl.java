@@ -11,6 +11,7 @@ import com.qlhx.service.base.realize.model.BaseVisitor;
 import com.qlhx.service.base.realize.mybatis.BaseMybatisDao;
 import com.qlhx.service.base.realize.mybatis.page.Pagination;
 import com.qlhx.service.base.realize.service.AccessRecordService;
+import com.qlhx.service.base.realize.util.Constant;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,7 +56,7 @@ public class AccessRecordServiceImpl extends BaseMybatisDao<BaseAccessRecordMapp
 			String visitorPhoto = visitor.getPhoto();
 			if(StringUtils.isNotBlank(visitorPhoto))
 			{
-				String sitePhotoPath = CommonUtil.saveImg(visitorPhoto, com.qlhx.util.Constant.IMG_PATH, "visitorPhoto", record.getVisitor().getIdnum());
+				String sitePhotoPath = CommonUtil.saveImg(visitorPhoto, Constant.IMG_PATH, "visitorPhoto", record.getVisitor().getIdnum());
 				visitor.setPhoto(sitePhotoPath);
 			}
 			if (visitorTemp == null) {
@@ -71,7 +72,7 @@ public class AccessRecordServiceImpl extends BaseMybatisDao<BaseAccessRecordMapp
 			String sitePhoto = record.getSitephoto();
 			if(StringUtils.isNotBlank(sitePhoto))
 			{
-				String sitePhotoPath = CommonUtil.saveImg(sitePhoto, com.qlhx.util.Constant.IMG_PATH, "sitePhoto", record.getVisitor().getIdnum());
+				String sitePhotoPath = CommonUtil.saveImg(sitePhoto, Constant.IMG_PATH, "sitePhoto", record.getVisitor().getIdnum());
 				record.setSitephoto(sitePhotoPath);
 			}
 			
