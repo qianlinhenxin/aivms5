@@ -53,6 +53,37 @@ public class FileUtil {
         }
     }
 
+
+    public static byte[] toByteArray(String filePath) throws IOException {
+
+        File f = new File(filePath);
+        if (!f.exists()) {
+            throw new FileNotFoundException(filePath);
+        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream((int) f.length());
+        BufferedInputStream in = null;
+        try {
+            in = new BufferedInputStream(new FileInputStream(f));
+            int buf_size = 1024;
+            byte[] buffer = new byte[buf_size];
+            int len = 0;
+            while (-1 != (len = in.read(buffer, 0, buf_size))) {
+                bos.write(buffer, 0, len);
+            }
+            return bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bos.close();
+        }
+    }
+
     /**
      * 修改文件的最后访问时间。
      * 如果文件不存在则创建该文件。

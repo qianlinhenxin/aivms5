@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.BaseNatiomMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.BaseNatiom">
+    <id column="nationNum" jdbcType="INTEGER" property="nationNum" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="tabTime" jdbcType="TIMESTAMP" property="tabtime" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    nationNum, value, tabTime, uploadTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_natiom
+    where nationNum = #{nationnum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_natiom
+    where nationNum = #{nationnum,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.BaseNatiom">
+    insert into base_natiom (nationNum, value, tabTime, 
+      uploadTime)
+    values (#{nationnum,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}, #{tabtime,jdbcType=TIMESTAMP}, 
+      #{uploadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.BaseNatiom">
+    insert into base_natiom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nationnum != null">
+        nationNum,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="tabtime != null">
+        tabTime,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nationnum != null">
+        #{nationnum,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="tabtime != null">
+        #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.BaseNatiom">
+    update base_natiom
+    <set>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="tabtime != null">
+        tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where nationNum = #{nationnum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.BaseNatiom">
+    update base_natiom
+    set value = #{value,jdbcType=VARCHAR},
+      tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP}
+    where nationNum = #{nationnum,jdbcType=INTEGER}
+  </update>
+
+    <select id="findEmployeesCountById" resultType="java.lang.Integer">
+		SELECT
+		COUNT(1)
+		FROM base_user u LEFT JOIN base_natiom n ON
+		u.nation=n.nationNum LEFT JOIN
+		base_department d ON u.depID=d.id
+		WHERE
+		u.status=1 AND u.depID=#{depId}
+	</select>
+</mapper>

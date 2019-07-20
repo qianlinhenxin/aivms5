@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.BaseResMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.BaseRes">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="isuse" jdbcType="INTEGER" property="isuse" />
+    <result column="companyCode" jdbcType="VARCHAR" property="companycode" />
+    <result column="tabTime" jdbcType="TIMESTAMP" property="tabtime" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, value, isuse, companyCode, tabTime, uploadTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_res
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_res
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.BaseRes">
+    insert into base_res (id, value, isuse, 
+      companyCode, tabTime, uploadTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}, #{isuse,jdbcType=INTEGER}, 
+      #{companycode,jdbcType=VARCHAR}, #{tabtime,jdbcType=TIMESTAMP}, #{uploadtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.BaseRes">
+    insert into base_res
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="isuse != null">
+        isuse,
+      </if>
+      <if test="companycode != null">
+        companyCode,
+      </if>
+      <if test="tabtime != null">
+        tabTime,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null">
+        #{isuse,jdbcType=INTEGER},
+      </if>
+      <if test="companycode != null">
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="tabtime != null">
+        #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.BaseRes">
+    update base_res
+    <set>
+      <if test="value != null">
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="isuse != null">
+        isuse = #{isuse,jdbcType=INTEGER},
+      </if>
+      <if test="companycode != null">
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="tabtime != null">
+        tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.BaseRes">
+    update base_res
+    set value = #{value,jdbcType=VARCHAR},
+      isuse = #{isuse,jdbcType=INTEGER},
+      companyCode = #{companycode,jdbcType=VARCHAR},
+      tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <!-- 查询带入/带出物品列表 -->
+    <select id="findDraginAndTakeoutRes" resultType="com.qlhx.model.BaseRes">
+		SELECT * FROM
+		base_res WHERE isuse=0
+	</select>
+</mapper>

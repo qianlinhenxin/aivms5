@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.BaseVisitorMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.BaseVisitor">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="idnum" jdbcType="VARCHAR" property="idnum" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="issuing" jdbcType="VARCHAR" property="issuing" />
+    <result column="validityDateStart" jdbcType="DATE" property="validitydatestart" />
+    <result column="validityDateEnd" jdbcType="VARCHAR" property="validitydateend" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="pinYin" jdbcType="VARCHAR" property="pinYin" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, sex, nation, birthday, address, idnum, photo, issuing, validityDateStart, 
+    validityDateEnd, phone, pinYin, code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_visitor
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_visitor
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.BaseVisitor">
+    insert into base_visitor (id, name, sex, 
+      nation, birthday, address, 
+      idnum, photo, issuing, 
+      validityDateStart, validityDateEnd, phone, 
+      pinYin, code)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR}, 
+      #{idnum,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{issuing,jdbcType=VARCHAR}, 
+      #{validitydatestart,jdbcType=DATE}, #{validitydateend,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{pinYin,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.BaseVisitor" useGeneratedKeys="true" keyProperty="id">
+    insert into base_visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="idnum != null">
+        idnum,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="issuing != null">
+        issuing,
+      </if>
+      <if test="validitydatestart != null">
+        validityDateStart,
+      </if>
+      <if test="validitydateend != null">
+        validityDateEnd,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="pinYin != null">
+        pinYin,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null">
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="issuing != null">
+        #{issuing,jdbcType=VARCHAR},
+      </if>
+      <if test="validitydatestart != null">
+        #{validitydatestart,jdbcType=DATE},
+      </if>
+      <if test="validitydateend != null">
+        #{validitydateend,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pinYin != null">
+        #{pinYin,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findVisitorByIdNum" resultType="com.qlhx.model.BaseVisitor">
+
+		SELECT
+		v.*,a.sitePhoto FROM
+		base_visitor v LEFT JOIN base_access_record a
+		on v.id =
+		a.vID WHERE idNum=#{idNum}
+		ORDER BY a.id desc LIMIT 1
+	</select>
+
+
+    <select id="findVisitorByRCode" resultType="com.qlhx.model.BaseVisitor">
+		SELECT
+		v.*,a.sitePhoto FROM
+		base_visitor v JOIN base_access_record a on v.id =
+		a.vID
+		AND a.rCode = #{rCode} AND status=0 ORDER BY a.id desc LIMIT 1
+	</select>
+  <select id="findVisitorByIdPhone" resultType="com.qlhx.model.BaseVisitor">
+		select * from base_visitor  WHERE  phone =#{phone} LIMIT 0,1
+   </select>
+
+
+    <!-- 根据来访人员身份号码判断该访客是否注销访问 -->
+    <select id="isLogOff" resultType="com.qlhx.model.BO.VisitorBo">
+		SELECT v.*,r.sitePhoto,r.CardNum,r.rCode,r.uid FROM
+		base_visitor v
+		LEFT
+		JOIN base_access_record r ON v.id=r.vID WHERE r.status=0
+		AND
+		v.idNum=#{idNum} ORDER BY r.id DESC LIMIT 1
+	</select>
+
+    <!-- 根据ic卡号查询当前正在进行访问的访客信息 -->
+    <select id="findVisitorAccessByICNum" resultType="com.qlhx.model.BaseAccessRecord">
+		select
+		v.*,a.sitePhoto,a.id as accessid,a.uid from base_visitor v join base_access_record a
+		on v.id = a.vID
+		AND a.CardNum = #{icNum} AND status = 0
+		ORDER BY a.id DESC LIMIT 0,1
+	</select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.BaseVisitor">
+    update base_visitor
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null">
+        idnum = #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="issuing != null">
+        issuing = #{issuing,jdbcType=VARCHAR},
+      </if>
+      <if test="validitydatestart != null">
+        validityDateStart = #{validitydatestart,jdbcType=DATE},
+      </if>
+      <if test="validitydateend != null">
+        validityDateEnd = #{validitydateend,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pinYin != null">
+        pinYin = #{pinYin,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.BaseVisitor">
+    update base_visitor
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      address = #{address,jdbcType=VARCHAR},
+      idnum = #{idnum,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      issuing = #{issuing,jdbcType=VARCHAR},
+      validityDateStart = #{validitydatestart,jdbcType=DATE},
+      validityDateEnd = #{validitydateend,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      pinYin = #{pinYin,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_visitor
+    <include refid="where_all" />
+	<include refid="limit_sql" />
+  </select>
+  
+  <select id="findCount" resultType="java.lang.Integer">
+		SELECT COUNT(1) FROM base_visitor
+		<include refid="where_all" />
+  </select>
+  
+  <sql id="where_all">
+	<where>
+	</where>
+  </sql>
+  <sql id="limit_sql">
+	<if test="page_sql != null and page_sql != ''">
+		${page_sql}
+	</if>
+  </sql>
+  
+  
+   <select id="selectByIdNum" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_visitor
+    where idnum = #{idNum}
+    limit 1
+  </select>
+</mapper>

@@ -297,6 +297,17 @@ public class DateUtil {
         return theDate1.after(theDate2);
     }
 
+
+    /**
+     * @return
+     */
+    public static Date getCurrentDateTime() {
+        java.util.Calendar calNow = java.util.Calendar.getInstance();
+        java.util.Date dtNow = calNow.getTime();
+
+        return dtNow;
+    }
+
     /**
      * 判断date1是否在date2之前，忽略时间部分
      *

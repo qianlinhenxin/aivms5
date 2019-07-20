@@ -1,0 +1,41 @@
+server:
+  port: 8090
+ 
+spring:
+  application:
+    name: service-base
+  profiles:
+      include: redis,config
+    
+  datasource:
+    url: jdbc:mysql://localhost:3306/aivms5?useUnicode=truecharacterEncoding=UTF-8&userSSL=false&serverTimezone=UTC
+    username: root
+    password: 365826650
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+  mvc: 
+    static-path-pattern: /**
+  resources:
+    static-locations: file:D:/aivms5_image
+
+
+ 
+#注册中心指向start    
+eureka: 
+  instance:
+    instance-id: service-base
+    appname: ${spring.application.name}
+  client: 
+    service-url: 
+      defaultZone: http://localhost:8761/eureka/
+    #register-with-eureka: false
+   # fetch-registry: false
+      
+      
+
+mybatis: 
+  mapper-locations: classpath:com/qlhx/mapper/*.xml
+  
+
+
+  
