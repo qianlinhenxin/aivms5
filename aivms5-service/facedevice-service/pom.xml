@@ -3,22 +3,17 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>aivms5-parent</artifactId>
+        <artifactId>aivms5-service</artifactId>
         <groupId>com.qlhx</groupId>
         <version>1.0.0</version>
-        <relativePath>../aivms5-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>aivms5-service</artifactId>
+    <artifactId>facedevice-service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>auth-service</module>
-        <module>base-service</module>
-        <module>control-service</module>
-        <module>device-service</module>
-        <module>door-service</module>
-        <module>facedevice-service</module>
+        <module>facedevice-api</module>
+        <module>facedevice-realize</module>
     </modules>
 
 
