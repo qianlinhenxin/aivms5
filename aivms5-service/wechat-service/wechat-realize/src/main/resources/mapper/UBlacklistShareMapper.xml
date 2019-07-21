@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.UBlacklistShareMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.UBlacklistShare">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="idNum" jdbcType="VARCHAR" property="idnum" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="issuing" jdbcType="VARCHAR" property="issuing" />
+    <result column="validityDateStart" jdbcType="DATE" property="validitydatestart" />
+    <result column="validityDateEnd" jdbcType="DATE" property="validitydateend" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="pinYin" jdbcType="VARCHAR" property="pinyin" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="isDel"  property="isDel" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="updateDate" jdbcType="TIMESTAMP" property="updatedate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, sex, nation, birthday, address, idNum, photo, issuing, validityDateStart, 
+    validityDateEnd, phone, pinYin, reason, source, isDel, createDate, updateDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_blacklist_share
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from u_blacklist_share
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.UBlacklistShare">
+    insert into u_blacklist_share (id, name, sex, 
+      nation, birthday, address, 
+      idNum, photo, issuing, 
+      validityDateStart, validityDateEnd, phone, 
+      pinYin, reason, source, 
+      createDate, updateDate)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR}, 
+      #{idnum,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{issuing,jdbcType=VARCHAR}, 
+      #{validitydatestart,jdbcType=DATE}, #{validitydateend,jdbcType=DATE}, #{phone,jdbcType=VARCHAR}, 
+      #{pinyin,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{updatedate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.UBlacklistShare">
+    insert into u_blacklist_share
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="idnum != null">
+        idNum,
+      </if>
+      <if test="photo != null">
+        photo,
+      </if>
+      <if test="issuing != null">
+        issuing,
+      </if>
+      <if test="validitydatestart != null">
+        validityDateStart,
+      </if>
+      <if test="validitydateend != null">
+        validityDateEnd,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="pinyin != null">
+        pinYin,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="isDel != null">
+        isDel,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null">
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="issuing != null">
+        #{issuing,jdbcType=VARCHAR},
+      </if>
+      <if test="validitydatestart != null">
+        #{validitydatestart,jdbcType=DATE},
+      </if>
+      <if test="validitydateend != null">
+        #{validitydateend,jdbcType=DATE},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null">
+        #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.UBlacklistShare">
+    update u_blacklist_share
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null">
+        idNum = #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
+      <if test="issuing != null">
+        issuing = #{issuing,jdbcType=VARCHAR},
+      </if>
+      <if test="validitydatestart != null">
+        validityDateStart = #{validitydatestart,jdbcType=DATE},
+      </if>
+      <if test="validitydateend != null">
+        validityDateEnd = #{validitydateend,jdbcType=DATE},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pinyin != null">
+        pinYin = #{pinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null">
+        isDel = #{isDel,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.UBlacklistShare">
+    update u_blacklist_share
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      address = #{address,jdbcType=VARCHAR},
+      idNum = #{idnum,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=VARCHAR},
+      issuing = #{issuing,jdbcType=VARCHAR},
+      validityDateStart = #{validitydatestart,jdbcType=DATE},
+      validityDateEnd = #{validitydateend,jdbcType=DATE},
+      phone = #{phone,jdbcType=VARCHAR},
+      pinYin = #{pinyin,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      updateDate = #{updatedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+  </sql>
+	
+  <select id="selectBlacklistShare" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_blacklist_share 
+    <where>
+			<include refid="where_all" />
+	</where>
+    ORDER BY updateDate DESC
+	<include refid="limit_sql" />
+  </select>
+  
+  <select id="selectBlacklistShareCount" resultType="java.lang.Integer">
+		SELECT
+		COUNT(1)
+		FROM
+		u_blacklist_share 
+		<where>
+			<include refid="where_all" />
+		</where>
+	</select>
+	
+	<sql id="where_all">
+		   <if test="name != null and name !='' ">
+				and name like CONCAT("%",#{name,jdbcType=VARCHAR},"%")
+			</if>
+		    <if test="idnum != null and idnum !='' ">
+				and idnum like CONCAT("%",#{idnum,jdbcType=VARCHAR},"%")
+			</if>
+	</sql>
+	
+	<select id="selectByParam" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_blacklist_share
+    where 1 = 1
+    <if test="downTime != null and downTime !='' ">
+        and  updateDate &gt; #{downTime,jdbcType=VARCHAR}
+    </if>
+    
+   <if test="idnum != null and idnum !='' ">
+        and  idnum = #{idnum,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

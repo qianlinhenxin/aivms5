@@ -21,6 +21,7 @@
         <module>facedevice-service</module>
         <module>gateway-service</module>
         <module>logger-service</module>
+        <module>wechat-service</module>
     </modules>
 
 
