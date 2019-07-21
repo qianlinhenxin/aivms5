@@ -1,11 +1,9 @@
 package com.qlhx.web.base.controller;
 
-import com.qlhx.common.model.ApiResult;
-import com.qlhx.common.model.DataGridResult;
-import com.qlhx.model.BaseAccessRecord;
-import com.qlhx.mybatis.page.Pagination;
-import com.qlhx.service.AccessRecordService;
-import io.swagger.annotations.Api;
+import com.qlhx.base.model.ApiResult;
+import com.qlhx.base.model.DataGridResult;
+import com.qlhx.service.base.api.api.record.AccessRecordApi;
+import com.qlhx.service.base.api.vo.record.BaseAccessRecordVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@Api(value = "访客记录接口", description = "访客记录接口")
+/**
+ * 访客记录接口
+ */
 @CrossOrigin(maxAge = 3600)
 @RestController
 @Scope(value = "prototype")
@@ -26,7 +25,7 @@ public class AccessRecordController {
 	private final Logger logger = LoggerFactory.getLogger(AccessRecordController.class);
 
 	@Autowired
-    AccessRecordService accessRecordService;
+	private AccessRecordApi accessRecordApi;
 
 	/**
 	 * 访客记录列表
@@ -36,49 +35,38 @@ public class AccessRecordController {
 	 * @param token
 	 * @return
 	 */
-	@RequestMapping(value = "list", method = RequestMethod.POST ,produces = { "application/json" })
-	public @ResponseBody DataGridResult list(ModelMap modelMap, Integer offset, Integer limit,@RequestHeader String token) {
-		Pagination<BaseAccessRecord> list = accessRecordService.selectAccessRecord(modelMap, offset, limit);
-		DataGridResult r = new DataGridResult();
-		r.setTotal(list.getTotalCount());
-		r.setRows(list.getList());
-		return r;
+	@RequestMapping(value = "list", method = RequestMethod.POST )
+	public DataGridResult list(ModelMap modelMap, Integer offset, Integer limit, @RequestHeader String token) {
+		return  accessRecordApi.list(modelMap, offset, limit,token);
 	}
 	
 	/**
 	 * 添加访客记录
-	 * @param baseAccessRecord
-	 * @param request
+	 * @param vo
 	 * @return
 	 */
-	@RequestMapping(value = "addOrUpdate", method = RequestMethod.POST, produces = { "application/json" })
+	@RequestMapping(value = "addOrUpdate", method = RequestMethod.POST)
 	public @ResponseBody
-    ApiResult<String> addOrUpdate(BaseAccessRecord baseAccessRecord, HttpServletRequest request) {
-		ApiResult<String> result = new ApiResult<String>();
+    ApiResult<String> addOrUpdate(BaseAccessRecordVO vo) {
+		ApiResult<String> result = new ApiResult();
 		try {
-			baseAccessRecord.setCreatetime(new Date());
-			accessRecordService.insertSelective(baseAccessRecord);
+			vo.setCreatetime(new Date());
+			result = accessRecordApi.addOrUpdate(vo);
 		} catch (Exception e) {
 			result.getErrorResult(e);
 		}
 		return result;
-		
 	}
+
 	@RequestMapping(value = "/updateByPrimaryKeySelective", method = RequestMethod.POST)
-	public int updateByPrimaryKeySelective(@RequestBody  BaseAccessRecord record){
-		return accessRecordService.updateByPrimaryKeySelective(record);
+	public int updateByPrimaryKeySelective(@RequestBody  BaseAccessRecordVO vo){
+		return accessRecordApi.updateByPrimaryKeySelective(vo);
 	}
 
 
 	@RequestMapping(value = "/insertSelective", method = RequestMethod.POST)
-	public int insertSelective(@RequestBody BaseAccessRecord record){
-		int i = accessRecordService.insertSelective(record);
-		if(i>0){
-			i = record.getId();
-		}else{
-			i = 0;
-		}
-		return i;
+	public int insertSelective(@RequestBody BaseAccessRecordVO record){
+		return accessRecordApi.insertSelective(record);
 	}
 
 
