@@ -1,8 +1,10 @@
 package com.qlhx.service.base.realize.model;
 
+import com.qlhx.base.bean.BaseBean;
+
 import java.util.Date;
 
-public class User {
+public class User extends BaseBean {
     private Integer id;
 
     private String username;

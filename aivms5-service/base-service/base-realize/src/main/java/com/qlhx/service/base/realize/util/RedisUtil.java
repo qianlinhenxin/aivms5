@@ -1,6 +1,6 @@
-//package com.qlhx.service.base.realize.util;
+//package com.qlhx.service.user.realize.util;
 //
-//import com.qlhx.base.util.redis.JedisManager;
+//import com.qlhx.user.util.redis.JedisManager;
 //import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.boot.context.properties.ConfigurationProperties;
 //import org.springframework.context.annotation.Bean;

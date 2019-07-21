@@ -4,7 +4,7 @@ spring:
   cloud:
     config:
       # 匹配配置中心多个配置文件
-      name: base-server # 需要跟git上文件名对应
+      name: user-server # 需要跟git上文件名对应
       profile: ${spring.profiles.active}
       label: master
       discovery:
