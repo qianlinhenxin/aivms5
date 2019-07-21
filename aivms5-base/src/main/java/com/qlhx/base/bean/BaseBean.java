@@ -75,18 +75,18 @@ public class BaseBean implements Serializable {
      * 页数
      */
     @BeanField(desc = "页数")
-    public Integer pageNum;
+    private Integer pageNum;
 
     /**
      * 页数大小
      */
     @BeanField(desc = "页数大小")
-    public Integer pageSize;
+    private Integer pageSize;
     /**
      * 版本
      */
     @BeanField(desc = "版本")
-    public Integer version;
+    private Integer version;
 
 
     public Long getId() {
@@ -175,5 +175,13 @@ public class BaseBean implements Serializable {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

@@ -1,5 +1,7 @@
 package com.qlhx.base.vo;
 
+import com.qlhx.base.annotation.BeanField;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,50 +16,78 @@ import java.util.Date;
  * @description
  */
 public class BaseVO implements Serializable {
+
     /**
      * ID
      */
+    @BeanField(desc = "ID")
     private Long id;
 
     /**
      * 创建用户
      */
+    @BeanField(desc = "创建用户")
     private Long createUser;
 
     /**
      * 创建用户名称
      */
+    @BeanField(desc = "创建用户名称")
     private String createName;
 
     /**
      * 创建日期
      */
+    @BeanField(desc = "创建日期")
     private Date createDate;
 
     /**
      * 创建IP
      */
+    @BeanField(desc = "创建IP")
     private String createIp;
 
     /**
      * 修改用户
      */
+    @BeanField(desc = "修改用户")
     private Long updateUser;
 
     /**
      * 修改用户名称
      */
+    @BeanField(desc = "修改用户名称")
     private String updateName;
 
     /**
      * 修改日期
      */
+    @BeanField(desc = "修改日期")
     private Date updateDate;
 
     /**
      * 修改IP
      */
+    @BeanField(desc = "修改IP")
     private String updateIp;
+
+    /**
+     * 页数
+     */
+    @BeanField(desc = "页数")
+    private Integer pageNum;
+
+    /**
+     * 页数大小
+     */
+    @BeanField(desc = "页数大小")
+    private Integer pageSize;
+    /**
+     * 版本
+     */
+    @BeanField(desc = "版本")
+    private Integer version;
+
 
     public Long getId() {
         return id;
@@ -129,5 +159,29 @@ public class BaseVO implements Serializable {
 
     public void setUpdateIp(String updateIp) {
         this.updateIp = updateIp;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }
