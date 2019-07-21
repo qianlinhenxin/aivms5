@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.qlhx.base.model.ApiResult;
 import com.qlhx.base.model.MQRegFace;
 import com.qlhx.service.facedevice.realize.model.Facedevice;
@@ -16,25 +14,15 @@ import com.qlhx.service.facedevice.realize.service.TDX8FaceService;
 import com.qlhx.service.facedevice.realize.service.TDXFaceService;
 import com.qlhx.service.facedevice.realize.service.impl.FaceDeviceServiceImpl;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.qlhx.common.model.ApiResult;
-import com.qlhx.common.model.MQLogger;
-import com.qlhx.common.model.MQRegFace;
-import com.qlhx.model.Facedevice;
-import com.qlhx.model.VisitorInfo;
-import com.qlhx.service.TDX8FaceService;
-import com.qlhx.service.TDXFaceService;
-import com.qlhx.service.impl.FaceDeviceServiceImpl;
+
 
 @Component
 public class PaymentNotifyReceive {
