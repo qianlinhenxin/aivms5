@@ -10,14 +10,12 @@ import com.qlhx.base.vo.BaseVO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +27,6 @@ import java.util.Map;
  * @date 2019/7/18 8:30
  * @Description desc:
  */
-@Service
 public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
     private static final Logger logger = LoggerFactory.getLogger(BaseApiImpl.class);
 
