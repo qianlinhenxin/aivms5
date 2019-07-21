@@ -22,7 +22,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @EnableEurekaClient
 @SpringBootApplication
-@EnableFeignClients(basePackages = {"com.qlhx.service.auth.api.api"})
+@EnableFeignClients(basePackages = {"com.qlhx.service.base.api.api"})
 @ComponentScan(basePackages = {"com.qlhx.base"})
 @ServletComponentScan
 @EnableAspectJAutoProxy(exposeProxy=true)
