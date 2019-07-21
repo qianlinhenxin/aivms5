@@ -1,4 +1,4 @@
-package com.qlhx.web.base.main.controller;
+package com.qlhx.web.base.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.qlhx.common.VideoCallBackCache;

@@ -1,4 +1,4 @@
-package com.qlhx.web.base.main.controller;
+package com.qlhx.web.base.controller;
 
 import com.qlhx.common.model.ApiResult;
 import com.qlhx.model.BO.PersonBO;

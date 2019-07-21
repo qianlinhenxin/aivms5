@@ -1,11 +1,10 @@
-package com.qlhx.web.base.main.controller;
+package com.qlhx.web.base.controller;
 
 import com.qlhx.common.model.ApiResult;
 import com.qlhx.common.model.DataGridResult;
-import com.qlhx.common.util.PinYinUtil;
-import com.qlhx.model.BaseMember;
+import com.qlhx.model.BaseAccessRecord;
 import com.qlhx.mybatis.page.Pagination;
-import com.qlhx.service.MemberService;
+import com.qlhx.service.AccessRecordService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,22 +15,21 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.UUID;
 
-@Api(value = "员工接口", description = "员工接口")
+@Api(value = "访客记录接口", description = "访客记录接口")
 @CrossOrigin(maxAge = 3600)
 @RestController
 @Scope(value = "prototype")
-@RequestMapping("member")
-public class MemberController {
+@RequestMapping("accessRecord")
+public class AccessRecordController {
 
-	private final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private final Logger logger = LoggerFactory.getLogger(AccessRecordController.class);
 
 	@Autowired
-	MemberService memberService;
+    AccessRecordService accessRecordService;
 
 	/**
-	 * 员工记录列表
+	 * 访客记录列表
 	 * @param modelMap
 	 * @param offset
 	 * @param limit
@@ -40,7 +38,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value = "list", method = RequestMethod.POST ,produces = { "application/json" })
 	public @ResponseBody DataGridResult list(ModelMap modelMap, Integer offset, Integer limit,@RequestHeader String token) {
-		Pagination<BaseMember> list = memberService.selectMemberRecord(modelMap, offset, limit);
+		Pagination<BaseAccessRecord> list = accessRecordService.selectAccessRecord(modelMap, offset, limit);
 		DataGridResult r = new DataGridResult();
 		r.setTotal(list.getTotalCount());
 		r.setRows(list.getList());
@@ -48,23 +46,42 @@ public class MemberController {
 	}
 	
 	/**
-	 * 添加修改员工
-	 * @param baseMember
+	 * 添加访客记录
+	 * @param baseAccessRecord
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "addOrUpdate", method = RequestMethod.POST, produces = { "application/json" })
-	public @ResponseBody ApiResult<String> addOrUpdate(BaseMember baseMember, HttpServletRequest request) {
+	public @ResponseBody
+    ApiResult<String> addOrUpdate(BaseAccessRecord baseAccessRecord, HttpServletRequest request) {
 		ApiResult<String> result = new ApiResult<String>();
 		try {
-			baseMember.setCreateTime(new Date());
-			baseMember.setPinyin(PinYinUtil.getFirstSpell(baseMember.getNickname()));
-			baseMember.setMemberidentifier(UUID.randomUUID().toString());
-			memberService.insertSelective(baseMember);
+			baseAccessRecord.setCreatetime(new Date());
+			accessRecordService.insertSelective(baseAccessRecord);
 		} catch (Exception e) {
 			result.getErrorResult(e);
 		}
 		return result;
+		
 	}
+	@RequestMapping(value = "/updateByPrimaryKeySelective", method = RequestMethod.POST)
+	public int updateByPrimaryKeySelective(@RequestBody  BaseAccessRecord record){
+		return accessRecordService.updateByPrimaryKeySelective(record);
+	}
+
+
+	@RequestMapping(value = "/insertSelective", method = RequestMethod.POST)
+	public int insertSelective(@RequestBody BaseAccessRecord record){
+		int i = accessRecordService.insertSelective(record);
+		if(i>0){
+			i = record.getId();
+		}else{
+			i = 0;
+		}
+		return i;
+	}
+
+
+
 
 }

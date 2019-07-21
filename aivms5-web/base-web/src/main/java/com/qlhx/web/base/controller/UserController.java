@@ -1,4 +1,4 @@
-package com.qlhx.web.base.main.controller;
+package com.qlhx.web.base.controller;
 
 import com.qlhx.base.model.ApiResult;
 import com.qlhx.service.base.api.api.user.UserApi;
@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.*;
-
 
 
 @CrossOrigin(maxAge = 3600)

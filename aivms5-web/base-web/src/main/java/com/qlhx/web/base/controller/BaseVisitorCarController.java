@@ -1,4 +1,4 @@
-package com.qlhx.web.base.main.controller;
+package com.qlhx.web.base.controller;
 
 import com.qlhx.model.BaseVisitorCar;
 import com.qlhx.service.BaseVisitorCarService;

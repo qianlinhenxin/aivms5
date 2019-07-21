@@ -1,4 +1,4 @@
-package com.qlhx.web.base.main.controller;
+package com.qlhx.web.base.controller;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
