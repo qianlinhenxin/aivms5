@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.UUserexpermissionMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.UUserexpermission">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="companyCode" jdbcType="VARCHAR" property="companycode" />
+    <result column="areaCode" jdbcType="VARCHAR" property="areacode" />
+    <result column="dayexnum" jdbcType="INTEGER" property="dayexnum" />
+    <result column="defualtexnum" jdbcType="INTEGER" property="defualtexnum" />
+    <result column="uploadtime" jdbcType="TIMESTAMP" property="uploadtime" />
+    <result column="tabTime" jdbcType="TIMESTAMP" property="tabtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, uid, companyCode, areaCode, dayexnum, defualtexnum, uploadtime, tabTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_userexpermission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from u_userexpermission
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.UUserexpermission">
+    insert into u_userexpermission (id, uid, companyCode, 
+      areaCode, dayexnum, defualtexnum, 
+      uploadtime, tabTime)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{companycode,jdbcType=VARCHAR}, 
+      #{areacode,jdbcType=VARCHAR}, #{dayexnum,jdbcType=INTEGER}, #{defualtexnum,jdbcType=INTEGER}, 
+      #{uploadtime,jdbcType=TIMESTAMP}, #{tabtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.UUserexpermission">
+    insert into u_userexpermission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="companycode != null">
+        companyCode,
+      </if>
+      <if test="areacode != null">
+        areaCode,
+      </if>
+      <if test="dayexnum != null">
+        dayexnum,
+      </if>
+      <if test="defualtexnum != null">
+        defualtexnum,
+      </if>
+      <if test="uploadtime != null">
+        uploadtime,
+      </if>
+      <if test="tabtime != null">
+        tabTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="companycode != null">
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null">
+        #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="dayexnum != null">
+        #{dayexnum,jdbcType=INTEGER},
+      </if>
+      <if test="defualtexnum != null">
+        #{defualtexnum,jdbcType=INTEGER},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabtime != null">
+        #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.UUserexpermission">
+    update u_userexpermission
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="companycode != null">
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null">
+        areaCode = #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="dayexnum != null">
+        dayexnum = #{dayexnum,jdbcType=INTEGER},
+      </if>
+      <if test="defualtexnum != null">
+        defualtexnum = #{defualtexnum,jdbcType=INTEGER},
+      </if>
+      <if test="uploadtime != null">
+        uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabtime != null">
+        tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER} and areaCode = #{areacode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.UUserexpermission">
+    update u_userexpermission
+    set uid = #{uid,jdbcType=INTEGER},
+      companyCode = #{companycode,jdbcType=VARCHAR},
+      areaCode = #{areacode,jdbcType=VARCHAR},
+      dayexnum = #{dayexnum,jdbcType=INTEGER},
+      defualtexnum = #{defualtexnum,jdbcType=INTEGER},
+      uploadtime = #{uploadtime,jdbcType=TIMESTAMP},
+      tabTime = #{tabtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectUserexpermission" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_userexpermission
+    where uid = #{uid,jdbcType=INTEGER} and areaCode = #{areacode,jdbcType=VARCHAR}
+    limit 0,1
+  </select>
+</mapper>

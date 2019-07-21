@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.UCompanyMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.UCompany">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="companyCode" jdbcType="VARCHAR" property="companycode" />
+    <result column="companyName" jdbcType="VARCHAR" property="companyname" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="bak" jdbcType="VARCHAR" property="bak" />
+    <result column="createUser" jdbcType="BIGINT" property="createuser" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="police_code" jdbcType="VARCHAR" property="policeCode" />
+    <result column="police_name" jdbcType="VARCHAR" property="policeName" />
+    <result column="police_son_code" jdbcType="VARCHAR" property="policeSonCode" />
+    <result column="police_son_name" jdbcType="VARCHAR" property="policeSonName" />
+    <result column="isUploadPolice" jdbcType="SMALLINT" property="isuploadpolice" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, companyCode, companyName, address, tel, bak, createUser, createTime, area_name, 
+    police_code, police_name, police_son_code, police_son_name, isUploadPolice,province
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_company
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="list" parameterType="com.qlhx.model.UCompany" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_company
+    where  1 = 1
+  </select>
+  <select id="companylist"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_company
+    <where>
+	    <include refid="where_all" />
+	</where>
+		order by createTime desc
+	<include refid="limit_sql" />
+  </select>
+  
+  <select id="findCount"  resultType="java.lang.Integer">
+    select 
+    count(id)
+    from u_company
+    <where>
+		<include refid="where_all" />
+	</where>
+  </select>
+  
+  <sql id="where_all">
+		<if test="companyName != null and companyName !='' ">
+			and companyName like CONCAT("%",#{companyName,jdbcType=VARCHAR},"%")
+		</if>
+		<if test="companyCode != null and companyCode !='' ">
+			and companyCode = #{companyCode,jdbcType=VARCHAR}
+		</if>
+ </sql>
+
+	<sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+	</sql>
+  
+  <select id="listTree" parameterType="com.qlhx.model.UCompany" resultType="java.util.Map">
+    select 
+    companycode id,companyname name , #{index} isParent
+    from u_company
+    where  1 = 1
+    <if test="companycode != null and companycode != ''">
+		and companycode = ${companycode}
+	</if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from u_company
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.UCompany">
+    insert into u_company (id, companyCode, companyName, 
+      address, tel, bak, 
+      createUser, createTime)
+    values (#{id,jdbcType=BIGINT}, #{companycode,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{bak,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=BIGINT}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.UCompany">
+    insert into u_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companycode != null">
+        companyCode,
+      </if>
+      <if test="companyname != null">
+        companyName,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="bak != null">
+        bak,
+      </if>
+      <if test="createuser != null">
+        createUser,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="policeCode != null">
+        police_code,
+      </if>
+      <if test="policeName != null">
+        police_name,
+      </if>
+      <if test="policeSonCode != null">
+        police_son_code,
+      </if>
+      <if test="policeSonName != null">
+        police_son_name,
+      </if>
+      <if test="isuploadpolice != null">
+        isUploadPolice,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companycode != null">
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null">
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null">
+        #{bak,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null">
+        #{createuser,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeCode != null">
+        #{policeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeName != null">
+        #{policeName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonCode != null">
+        #{policeSonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonName != null">
+        #{policeSonName,jdbcType=VARCHAR},
+      </if>
+      <if test="isuploadpolice != null">
+        #{isuploadpolice,jdbcType=SMALLINT},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.UCompany">
+    update u_company
+    <set>
+      <if test="companycode != null">
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null">
+        companyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null">
+        bak = #{bak,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null">
+        createUser = #{createuser,jdbcType=BIGINT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeCode != null">
+        police_code = #{policeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeName != null">
+        police_name = #{policeName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonCode != null">
+        police_son_code = #{policeSonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonName != null">
+        police_son_name = #{policeSonName,jdbcType=VARCHAR},
+      </if>
+      <if test="isuploadpolice != null">
+        isUploadPolice = #{isuploadpolice,jdbcType=SMALLINT},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.UCompany">
+    update u_company
+    set companyCode = #{companycode,jdbcType=VARCHAR},
+      companyName = #{companyname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      bak = #{bak,jdbcType=VARCHAR},
+      createUser = #{createuser,jdbcType=BIGINT},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectMaxCompanyCode" resultType="java.lang.String">
+    select 
+    max(companyCode)
+    from u_company
+  </select>
+  
+   <select id="companyDistribution" resultType="java.util.Map">
+    select 
+    province name , count(id) y
+    from u_company group by province
+  </select>
+</mapper>

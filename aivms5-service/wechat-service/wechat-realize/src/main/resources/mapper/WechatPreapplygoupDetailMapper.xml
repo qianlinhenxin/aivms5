@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qlhx.dao.WechatPreapplygoupDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.qlhx.model.WechatPreapplygoupDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="applyid" property="applyid" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="utel" property="utel" jdbcType="VARCHAR" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="jointime" property="jointime" jdbcType="TIMESTAMP" />
+    <result column="rstatus" property="rstatus" jdbcType="INTEGER" />
+    <result column="accessrecordid" property="accessrecordid" jdbcType="INTEGER" />
+    <result column="syncid" property="syncid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="companyCode" property="companycode" jdbcType="VARCHAR" />
+    <result column="tabTime" property="tabtime" jdbcType="TIMESTAMP" />
+    <result column="uploadTime" property="uploadtime" jdbcType="TIMESTAMP" />
+    <result column="cardNum" property="cardnum" jdbcType="VARCHAR" />
+    <result column="inviterOpenid" property="inviteropenid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, applyid, openid, utel, uname, jointime, rstatus, accessrecordid, syncid, type, 
+    companyCode, tabTime, uploadTime, cardNum, inviterOpenid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wechat_preapplygoupdetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wechat_preapplygoupdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.WechatPreapplygoupDetail" >
+    insert into wechat_preapplygoupdetail (id, applyid, openid, 
+      utel, uname, jointime, 
+      rstatus, accessrecordid, syncid, 
+      type, companyCode, tabTime, 
+      uploadTime, cardNum, inviterOpenid
+      )
+    values (#{id,jdbcType=INTEGER}, #{applyid,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, 
+      #{utel,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR}, #{jointime,jdbcType=TIMESTAMP}, 
+      #{rstatus,jdbcType=INTEGER}, #{accessrecordid,jdbcType=INTEGER}, #{syncid,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{companycode,jdbcType=VARCHAR}, #{tabtime,jdbcType=TIMESTAMP}, 
+      #{uploadtime,jdbcType=TIMESTAMP}, #{cardnum,jdbcType=VARCHAR}, #{inviteropenid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.WechatPreapplygoupDetail" >
+    insert into wechat_preapplygoupdetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyid != null" >
+        applyid,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="utel != null" >
+        utel,
+      </if>
+      <if test="uname != null" >
+        uname,
+      </if>
+      <if test="jointime != null" >
+        jointime,
+      </if>
+      <if test="rstatus != null" >
+        rstatus,
+      </if>
+      <if test="accessrecordid != null" >
+        accessrecordid,
+      </if>
+      <if test="syncid != null" >
+        syncid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="companycode != null" >
+        companyCode,
+      </if>
+      <if test="tabtime != null" >
+        tabTime,
+      </if>
+      <if test="uploadtime != null" >
+        uploadTime,
+      </if>
+      <if test="cardnum != null" >
+        cardNum,
+      </if>
+      <if test="inviteropenid != null" >
+        inviterOpenid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyid != null" >
+        #{applyid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="utel != null" >
+        #{utel,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null" >
+        #{jointime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rstatus != null" >
+        #{rstatus,jdbcType=INTEGER},
+      </if>
+      <if test="accessrecordid != null" >
+        #{accessrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="syncid != null" >
+        #{syncid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="companycode != null" >
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="tabtime != null" >
+        #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null" >
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardnum != null" >
+        #{cardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteropenid != null" >
+        #{inviteropenid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.WechatPreapplygoupDetail" >
+    update wechat_preapplygoupdetail
+    <set >
+      <if test="applyid != null" >
+        applyid = #{applyid,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="utel != null" >
+        utel = #{utel,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        uname = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="jointime != null" >
+        jointime = #{jointime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rstatus != null" >
+        rstatus = #{rstatus,jdbcType=INTEGER},
+      </if>
+      <if test="accessrecordid != null" >
+        accessrecordid = #{accessrecordid,jdbcType=INTEGER},
+      </if>
+      <if test="syncid != null" >
+        syncid = #{syncid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="companycode != null" >
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="tabtime != null" >
+        tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null" >
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cardnum != null" >
+        cardNum = #{cardnum,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteropenid != null" >
+        inviterOpenid = #{inviteropenid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.WechatPreapplygoupDetail" >
+    update wechat_preapplygoupdetail
+    set applyid = #{applyid,jdbcType=VARCHAR},
+      openid = #{openid,jdbcType=VARCHAR},
+      utel = #{utel,jdbcType=VARCHAR},
+      uname = #{uname,jdbcType=VARCHAR},
+      jointime = #{jointime,jdbcType=TIMESTAMP},
+      rstatus = #{rstatus,jdbcType=INTEGER},
+      accessrecordid = #{accessrecordid,jdbcType=INTEGER},
+      syncid = #{syncid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      companyCode = #{companycode,jdbcType=VARCHAR},
+      tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      cardNum = #{cardnum,jdbcType=VARCHAR},
+      inviterOpenid = #{inviteropenid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,38 @@
+server:
+  port: 8111
+ 
+spring:
+  application:
+    name: service-wechat
+  profiles:
+      include: redis
+    
+  datasource:
+    url: jdbc:mysql://192.168.99.35:3307/aivms5?useUnicode=truecharacterEncoding=UTF-8&userSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+    
+  resources: 
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:D:/test/
+
+  mvc: 
+    static-path-pattern: /**
+ 
+#注册中心指向start    
+eureka: 
+  instance:
+    instance-id: service-wechat
+    appname: ${spring.application.name}
+  client: 
+    service-url: 
+      defaultZone: http://127.0.0.1:8761/eureka/
+    #register-with-eureka: false
+   # fetch-registry: false
+      
+      
+
+mybatis:
+  mapper-locations: classpath:com/qlhx/mapper/*.xml
+

@@ -1,0 +1,24 @@
+server:
+  port: 8092
+ 
+spring:
+  application:
+    name: service-device
+  profiles:
+      include: amq
+ 
+#注册中心指向start    
+eureka: 
+  instance:
+    instance-id: service-device
+    appname: ${spring.application.name}
+  client: 
+    service-url: 
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+#logging.file=info.log
+
+logging: 
+  config: classpath:logback-spring.xml
+
+   

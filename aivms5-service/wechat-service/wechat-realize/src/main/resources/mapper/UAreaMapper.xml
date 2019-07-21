@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qlhx.dao.UAreaMapper">
+  <resultMap id="BaseResultMap" type="com.qlhx.model.UArea">
+    <id column="primaryId" jdbcType="BIGINT" property="primaryId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="companyCode" jdbcType="VARCHAR" property="companycode" />
+    <result column="areaCode" jdbcType="VARCHAR" property="areacode" />
+    <result column="parentAreaCode" jdbcType="VARCHAR" property="parentareacode" />
+    <result column="areaName" jdbcType="VARCHAR" property="areaname" />
+    <result column="bak" jdbcType="VARCHAR" property="bak" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="tabTime" jdbcType="TIMESTAMP" property="tabtime" />
+    <result column="uploadTime" jdbcType="TIMESTAMP" property="uploadtime" />
+    
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="police_code" jdbcType="VARCHAR" property="policeCode" />
+    <result column="police_name" jdbcType="VARCHAR" property="policeName" />
+    <result column="police_son_code" jdbcType="VARCHAR" property="policeSonCode" />
+    <result column="police_son_name" jdbcType="VARCHAR" property="policeSonName" />
+    <result column="village_address" jdbcType="VARCHAR" property="villageAddress" />
+    <result column="isUploadPolice" jdbcType="SMALLINT" property="isuploadpolice" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    primaryId,id, companyCode, areaCode, parentAreaCode, areaName, bak, createTime, tabTime, uploadTime,
+    police_code, police_name, police_son_code, police_son_name,village_address,isUploadPolice
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_area
+    where primaryId = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAreasByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+    select 
+    areaCode
+    from u_user_area
+    where uid = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from u_area
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.qlhx.model.UArea">
+    insert into u_area (id, companyCode, areaCode, 
+      parentAreaCode, areaName, bak, 
+      createTime, tabTime, uploadTime
+      )
+    values (#{id,jdbcType=BIGINT}, #{companycode,jdbcType=VARCHAR}, #{areacode,jdbcType=VARCHAR}, 
+      #{parentareacode,jdbcType=VARCHAR}, #{areaname,jdbcType=VARCHAR}, #{bak,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{tabtime,jdbcType=TIMESTAMP}, #{uploadtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qlhx.model.UArea">
+    insert into u_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="companycode != null">
+        companyCode,
+      </if>
+      <if test="areacode != null">
+        areaCode,
+      </if>
+      <if test="parentareacode != null">
+        parentAreaCode,
+      </if>
+      <if test="areaname != null">
+        areaName,
+      </if>
+      <if test="bak != null">
+        bak,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="tabtime != null">
+        tabTime,
+      </if>
+      <if test="uploadtime != null">
+        uploadTime,
+      </if>
+      <if test="native_createDate != null">
+		native_createDate,
+	  </if>
+	  <if test="native_updateDate != null">
+		native_updateDate,
+	  </if>
+	  <if test="name != null">
+        name,
+      </if>
+	  <if test="policeCode != null">
+        police_code,
+      </if>
+      <if test="policeName != null">
+        police_name,
+      </if>
+      <if test="policeSonCode != null">
+        police_son_code,
+      </if>
+      <if test="policeSonName != null">
+        police_son_name,
+      </if>
+      <if test="villageAddress != null">
+        village_address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companycode != null">
+        #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null">
+        #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentareacode != null">
+        #{parentareacode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null">
+        #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null">
+        #{bak,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabtime != null">
+        #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="native_createDate != null">
+		#{native_createDate},
+	  </if>
+	  <if test="native_updateDate != null">
+		#{native_updateDate},
+	  </if>
+	  <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+	  <if test="policeCode != null">
+        #{policeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeName != null">
+        #{policeName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonCode != null">
+        #{policeSonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonName != null">
+        #{policeSonName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageAddress != null">
+        #{villageAddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.model.UArea">
+    update u_area
+    <set>
+      <if test="isuploadpolice != null">
+        isUploadPolice = #{isuploadpolice,jdbcType=SMALLINT},
+      </if> 
+      <if test="companycode != null and companycode != ''">
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null and areacode != ''">
+        areaCode = #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentareacode != null and parentareacode != ''">
+        parentAreaCode = #{parentareacode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null and areaname != ''">
+        areaName = #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null and bak != ''">
+        bak = #{bak,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null and createtime != ''">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabtime != null and tabtime != ''">
+        tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null and uploadtime != ''">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="native_updateDate != null and native_updateDate != ''">
+		native_updateDate = #{native_updateDate},
+	  </if>
+	  <if test="name != null and name != ''">
+		name = #{name},
+	  </if>
+      <if test="native_updateDate != null and native_updateDate != ''">
+		native_updateDate = #{native_updateDate},
+	  </if>
+	  <if test="policeCode != null and policeCode != ''">
+        police_code = #{policeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeName != null and policeName != ''">
+        police_name = #{policeName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonCode != null and policeSonCode != ''">
+        police_son_code = #{policeSonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonName != null and policeSonName != ''">
+        police_son_name = #{policeSonName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageAddress != null and villageAddress != ''">
+        village_address = #{villageAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where primaryId = #{primaryId,jdbcType=BIGINT}
+  </update>
+   <update id="updateByCompanyCodeAndId" parameterType="com.qlhx.model.UArea">
+    update u_area
+    <set>
+      <if test="companycode != null">
+        companyCode = #{companycode,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null">
+        areaCode = #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentareacode != null">
+        parentAreaCode = #{parentareacode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaname != null">
+        areaName = #{areaname,jdbcType=VARCHAR},
+      </if>
+      <if test="bak != null">
+        bak = #{bak,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tabtime != null">
+        tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadtime != null">
+        uploadTime = #{uploadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+		name = #{name},
+	  </if>
+      <if test="native_updateDate != null">
+		native_updateDate = #{native_updateDate},
+	  </if>
+	  <if test="policeCode != null">
+        police_code = #{policeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeName != null">
+        police_name = #{policeName,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonCode != null">
+        police_son_code = #{policeSonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="policeSonName != null">
+        police_son_name = #{policeSonName,jdbcType=VARCHAR},
+      </if>
+      <if test="villageAddress != null">
+        village_address = #{villageAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where companyCode = #{companycode,jdbcType=VARCHAR} and id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.model.UArea">
+    update u_area
+    set companyCode = #{companycode,jdbcType=VARCHAR},
+      areaCode = #{areacode,jdbcType=VARCHAR},
+      parentAreaCode = #{parentareacode,jdbcType=VARCHAR},
+      areaName = #{areaname,jdbcType=VARCHAR},
+      bak = #{bak,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      tabTime = #{tabtime,jdbcType=TIMESTAMP},
+      uploadTime = #{uploadtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+   <select id="listTree" parameterType="com.qlhx.model.UArea" resultType="java.util.Map">
+    select 
+    u.areaCode id,u.areaName name,(case when (select count(*) from u_area u1 where u.companyCode = u1.companyCode and u1.parentAreaCode = u.areaCode) > 0 then 'true' else 'false' end) isParent
+    from u_area u
+    where 1 =1
+    <if test="level != null">
+        and parentAreaCode is null
+      </if>
+    <if test="companycode != null">
+        and companyCode = #{companycode}
+      </if>
+      <if test="parentareacode != null">
+        and parentAreaCode = #{parentareacode}
+      </if>
+  </select>
+
+
+  <select id="selectMemberByPama" resultType="com.qlhx.model.UArea">
+		SELECT * FROM u_area
+		WHERE 
+		areaCode = #{areaCode}
+  </select>
+  
+  <select id="listByCompanyCode" resultType="com.qlhx.model.UArea">
+    select 
+    *
+    from u_area
+    <where>
+    <if test="companyCode != null and companyCode !='' ">
+        and companyCode = #{companyCode}
+    </if>
+    </where>
+  </select>
+  
+  <select id="arealist"  resultMap="BaseResultMap">
+    select 
+    a.primaryId,a.id, a.companyCode, a.areaCode, a.parentAreaCode, a.areaName, a.bak, a.createTime, a.tabTime, a.uploadTime,
+    a.police_code, a.police_name, a.police_son_code, a.police_son_name,a.village_address,c.companyName,a.isUploadPolice,a.name
+    from u_area a left join u_company c on a.companyCode = c.companyCode 
+    <where>
+	    <include refid="where_all" />
+	</where>
+		order by createTime desc
+	<include refid="limit_sql" />
+  </select>
+  
+  <select id="findCount"  resultType="java.lang.Integer">
+    select 
+    count(id)
+    from u_area a
+    <where>
+		<include refid="where_all" />
+	</where>
+  </select>
+  
+  <sql id="where_all">
+		<if test="areaName != null and areaName !='' ">
+			and a.areaName like CONCAT("%",#{areaName,jdbcType=VARCHAR},"%")
+		</if>
+		<if test="areaCode != null and areaCode !='' ">
+			and a.areaCode like CONCAT("%",#{areaCode,jdbcType=VARCHAR},"%")
+		</if>
+		<if test="companyCode != null and companyCode !='' ">
+			and a.companyCode like CONCAT("%",#{companyCode,jdbcType=VARCHAR},"%")
+		</if>
+ </sql>
+
+	<sql id="limit_sql">
+		<if test="page_sql != null and page_sql != ''">
+			${page_sql}
+		</if>
+	</sql>
+	
+	<select id="findMaxAreaCode"  resultType="java.lang.String">
+    select max(areaCode) from u_area where companyCode = #{companyCode}
+    <if test="parentAreaCode != null and parentAreaCode !='' ">
+		and parentAreaCode = #{parentAreaCode,jdbcType=VARCHAR}
+	</if>
+   
+  </select>
+  
+  <select id="selectByAreaCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from u_area
+    where areaCode = #{areaCode}
+  </select>
+  
+</mapper>
