@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 /**
  * Create by xb
  * The file is [ registrationCenter] on [ x-file-system ] project
- * The file path is registrationCenter
+ * The file path is com.qlhx.registrationCenter
  *
  * @versio 1.0.o
  * @Author he ming xi
@@ -17,8 +17,9 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
  */
 @SpringBootApplication
 @EnableEurekaServer
-public class registrationCenter {
+public class RegistrationCenterTow {
     public static void main(String[] args) {
-        SpringApplication.run(registrationCenter.class,args);
+        SpringApplication.run(RegistrationCenterTow.class,args);
+        System.out.println("<---------------RegistrationCenterTow starting--------------->");
     }
 }

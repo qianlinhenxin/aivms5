@@ -56,6 +56,10 @@
         <mongodb.version>3.10.2</mongodb.version>
         <amqp-version>2.1.6.RELEASE</amqp-version>
 
+        <!-- mysql -->
+        <mysql.version>5.1.47</mysql.version>
+        <mysql.version-8>8.0.16</mysql.version-8>
+
     </properties>
 
     <dependencyManagement>
@@ -85,7 +89,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>5.1.47</version>
+                <version>${mysql.version-8}</version>
             </dependency>
             <!--Druid -->
             <dependency>

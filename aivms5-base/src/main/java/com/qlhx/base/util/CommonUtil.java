@@ -17,24 +17,25 @@ public class CommonUtil {
 	 */
 	public static String saveImg(String imageBase64,String path , String context,String idNum)
 	{
-		try {
-			Date now = new Date();
-			String diskPath = path+ File.separator;
-			String picPath = context  + File.separator + DateUtil.getCurrentDateString()
-					+ File.separator + idNum + File.separator +File.separator + idNum + "_" + now.getTime()
-					+ ".png";
-			String realPath = diskPath + picPath;
-
-			if (Img.base642img(imageBase64, realPath)) {
-				return picPath;
-			} else {
-				return null;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("存照片发生错误", e);
-			return null;
-		}
+//		try {
+//			Date now = new Date();
+//			String diskPath = path+ File.separator;
+//			String picPath = context  + File.separator + DateUtil.getCurrentDateTime()
+//					+ File.separator + idNum + File.separator +File.separator + idNum + "_" + now.getTime()
+//					+ ".png";
+//			String realPath = diskPath + picPath;
+//
+//			if (Img.base642img(imageBase64, realPath)) {
+//				return picPath;
+//			} else {
+//				return null;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			logger.error("存照片发生错误", e);
+//			return null;
+//		}
+		return null;
 
 	}
 	
