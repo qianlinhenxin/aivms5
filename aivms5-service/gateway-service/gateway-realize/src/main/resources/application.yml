@@ -18,10 +18,10 @@ spring:
     gateway:
       routes: 
       #基础微服务
-      - id: base
-        uri: lb://service-base
+      - id: user
+        uri: lb://service-user
         predicates:
-          - Path=/base/**
+          - Path=/user/**
         filters:
           - StripPrefix=1
       #控制微服务   

@@ -17,6 +17,12 @@
             <artifactId>base-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.qlhx</groupId>
+            <artifactId>base-realize</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 

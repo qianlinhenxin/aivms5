@@ -48,7 +48,7 @@ public interface TestApi2 {
     ApiResponse<List<TestVO>> findByParams(@RequestBody Map<String, Object> params);
 
 
-    String PREFIX_URL = "/base-test2";
+    String PREFIX_URL = "/user-test2";
 
     @RequestMapping(value = PREFIX_URL+"/test",method = RequestMethod.POST)
     ApiResponse<TestVO> test(@RequestBody TestVO TestVO);

@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableFeignClients(basePackages = {"com.qlhx.service.base.api.api"})
 @ComponentScan(basePackages = {"com.qlhx.service.base.realize.util"})
 @EnableEurekaClient
-@MapperScan({"com.qlhx.service.base.realize.mapper"})
+@MapperScan({"com.qlhx.service.user.realize.mapper"})
 @RefreshScope
 public class BaseServerApplication {
     private static Logger logger = LoggerFactory.getLogger(BaseServerApplication.class);
