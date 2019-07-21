@@ -1,6 +1,7 @@
 package com.qlhx.service.door.realize.qlhx.Listener;
 
 import com.alibaba.fastjson.JSON;
+import com.qlhx.base.model.ApiResult;
 import com.qlhx.base.util.IConfig;
 import com.qlhx.service.door.realize.qlhx.model.USwingCardRecord;
 import com.qlhx.service.door.realize.qlhx.service.EntranceGuardService;
