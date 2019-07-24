@@ -17,11 +17,11 @@ import java.util.Date;
  */
 public class BaseBean implements Serializable {
 
-//    /**
-//     * ID
-//     */
-//    @BeanField(desc = "ID")
-//    private Long id;
+    /**
+     * ID
+     */
+    @BeanField(desc = "ID")
+    private Long id;
 
     /**
      * 创建用户
@@ -89,13 +89,13 @@ public class BaseBean implements Serializable {
     private Integer version;
 
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getCreateUser() {
         return createUser;

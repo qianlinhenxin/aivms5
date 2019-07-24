@@ -19,7 +19,8 @@ public class ApiResponse<T> implements Serializable {
 	private boolean hasError = false;
 	private Exception exception = null;
 	private T retContent;
-	
+
+
 	public boolean isHasError() {
 		return hasError;
 	}
