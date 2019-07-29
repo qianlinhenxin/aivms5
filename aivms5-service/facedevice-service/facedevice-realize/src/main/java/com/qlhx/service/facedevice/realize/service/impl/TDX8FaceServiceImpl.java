@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.qlhx.base.util.http.HTTP;
+import com.qhlx.core.util.web.HttpClient;
 import com.qlhx.service.facedevice.realize.dao.FacedeviceMapper;
 import com.qlhx.service.facedevice.realize.model.Facedevice;
 import com.qlhx.service.facedevice.realize.model.VisitorInfo;
@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import tools.HTTP;
 
 /**
  * Created by oldxue on 2019/2/14. TDX8人脸终端
@@ -194,7 +195,7 @@ public class TDX8FaceServiceImpl implements TDX8FaceService {
     {
         logger.info("=====开始ks http request:"+cardnum+" =====");
         String urlTemp= "http://"+ facedevice.getIp()+url;
-        String result = HTTP.postForm(urlTemp+"?"+body , body);
+        String result = HttpClient.postForm(urlTemp+"?"+body , body);
         logger.info("=====ks http response:"+result+"");
         //JSONObject jsonObject = JSONObject.parseObject(result);
         //return jsonObject.get("success").toString().equals("true");
@@ -364,7 +365,7 @@ public class TDX8FaceServiceImpl implements TDX8FaceService {
     private boolean PostFormDevice(Facedevice device, String tdxCallBack) throws UnsupportedEncodingException {
         String urlTemp= "http://"+ device.getIp()+urlRegisTopic;
         String body = String.format(strRegisTopic ,URLEncoder.encode(tdxCallBack, "utf-8") , device.getPwd() );
-        String result = HTTP.postForm(urlTemp+"?"+body , body);
+        String result = HttpClient.postForm(urlTemp+"?"+body , body);
 
         logger.info("=====ks PostFormDevice http response:"+result+"");
         JSONObject jsonObject = JSONObject.parseObject(result);

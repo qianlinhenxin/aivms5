@@ -1,9 +1,8 @@
 package com.qlhx.service.auth.api.vo;
 
-import com.qlhx.base.annotation.BeanField;
-import com.qlhx.base.util.bean.ObjectUtil;
-import com.qlhx.base.vo.BaseVO;
-
+import com.qhlx.core.annotation.BeanField;
+import com.qhlx.core.util.bean.ObjectUtil;
+import com.qhlx.core.vo.BaseVO;
 /**
  * Create by xigexb
  *

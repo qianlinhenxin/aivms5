@@ -1,6 +1,7 @@
 package com.qlhx.service.auth.realize.bean;
 
-import com.qlhx.base.bean.BaseBean;
+
+import com.qhlx.core.bean.BaseBean;
 
 /**
  * Create by xigexb

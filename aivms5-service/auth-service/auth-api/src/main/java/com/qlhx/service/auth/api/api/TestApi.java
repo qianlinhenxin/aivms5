@@ -1,7 +1,7 @@
 package com.qlhx.service.auth.api.api;
 
-import com.qlhx.base.bean.PageBean;
-import com.qlhx.base.util.web.ApiResponse;
+import com.qhlx.core.page.PageDTO;
+import com.qhlx.core.util.web.ApiResponse;
 import com.qlhx.service.auth.api.vo.TestVO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,10 +30,10 @@ public interface TestApi {
     ApiResponse<Integer> update(@RequestBody TestVO TestVO);
 
     @RequestMapping(value="/updateIgnoreNull", method = RequestMethod.POST)
-    ApiResponse<Integer> updateIgnoreNull(@RequestBody TestVO TestVO);
+    ApiResponse<Integer> updateBySelective(@RequestBody TestVO TestVO);
 
     @RequestMapping(value = "/findByPage", method = RequestMethod.POST)
-    ApiResponse<PageBean<TestVO>> findByPage(@RequestBody Map<String, Object> params);
+    ApiResponse<PageDTO<TestVO>> findByPage(@RequestBody Map<String, Object> params);
 
     @RequestMapping(value = "/findAll")
     ApiResponse<List<TestVO>> findAll();

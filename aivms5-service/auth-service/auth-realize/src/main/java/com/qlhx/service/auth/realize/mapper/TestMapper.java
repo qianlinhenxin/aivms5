@@ -1,6 +1,6 @@
 package com.qlhx.service.auth.realize.mapper;
 
-import com.qlhx.base.mapper.BaseMapper;
+import com.qhlx.core.mapper.BaseMapper;
 import com.qlhx.service.auth.realize.bean.Test;
 
 /**

@@ -1,9 +1,9 @@
 package com.qlhx.service.auth.realize.apiimpl;
 
+import com.qhlx.core.util.web.ApiResponse;
 import com.qlhx.base.api.impl.BaseApiImpl;
 import com.qlhx.service.auth.api.api.TestApi;
 import com.qlhx.service.auth.api.vo.TestVO;
-import com.qlhx.base.util.web.ApiResponse;
 import com.qlhx.service.auth.realize.bean.Test;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

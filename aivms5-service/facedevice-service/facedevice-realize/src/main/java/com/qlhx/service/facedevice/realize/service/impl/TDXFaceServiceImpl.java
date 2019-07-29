@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.qlhx.base.util.http.HTTP;
+import com.qhlx.core.util.web.HttpClient;
 import com.qlhx.service.facedevice.realize.dao.FacedeviceMapper;
 import com.qlhx.service.facedevice.realize.model.Facedevice;
 import com.qlhx.service.facedevice.realize.model.VisitorInfo;
@@ -195,11 +195,11 @@ public class TDXFaceServiceImpl implements TDXFaceService {
 
     private boolean PostForm(Facedevice facedevice , VisitorInfo visitorInfo , String url , String body)
     {
-        logger.info("=====开始tdx http request:"+visitorInfo.getCardNum()+" =====");
-        String urlTemp= "http://"+ facedevice.getIp()+url;
-        String result = HTTP.postForm(urlTemp , body);
+        logger.info("=====开始tdx HttpClient request:"+visitorInfo.getCardNum()+" =====");
+        String urlTemp= "HttpClient://"+ facedevice.getIp()+url;
+        String result = HttpClient.postForm(urlTemp , body);
 
-        logger.info("=====tdx http response:"+result+"");
+        logger.info("=====tdx HttpClient response:"+result+"");
         JSONObject jsonObject = JSONObject.parseObject(result);
         return jsonObject.get("success").toString().equals("true");
     }
@@ -254,7 +254,7 @@ public class TDXFaceServiceImpl implements TDXFaceService {
 
     @Override
     public Map<String, String> regisTopic(Facedevice device) throws UnsupportedEncodingException {
-        //tdxCallBack  http://192.168.99.250:8081/device/aiface/hcOpenAlarm
+        //tdxCallBack  HttpClient://192.168.99.250:8081/device/aiface/hcOpenAlarm
         String tdxCallBack = "/aiface/tdxCallBack";
 
         Map<String, String> resultMap = new HashMap<String, String>();
@@ -286,12 +286,12 @@ public class TDXFaceServiceImpl implements TDXFaceService {
     }
 
     private boolean PostFormDeviceREG(Facedevice device, String tdxCallBack) throws UnsupportedEncodingException {
-        String urlTemp= "http://"+ device.getIp()+urlRegisTopic;
+        String urlTemp= "HttpClient://"+ device.getIp()+urlRegisTopic;
         String body = String.format(strRegisTopic ,URLEncoder.encode(tdxCallBack, "utf-8") , device.getPwd() );
 
-        String result = HTTP.postForm(urlTemp , body);
+        String result = HttpClient.postForm(urlTemp , body);
 
-        logger.info("=====tdx PostFormDevice http response:"+result+"");
+        logger.info("=====tdx PostFormDevice HttpClient response:"+result+"");
         JSONObject jsonObject = JSONObject.parseObject(result);
         return jsonObject.get("success").toString().equals("true");
     }
@@ -299,7 +299,7 @@ public class TDXFaceServiceImpl implements TDXFaceService {
     @Override
     public Map<String, String> deRegisTopic(Facedevice device) throws UnsupportedEncodingException {
         //取消订单，相当于给一个错误的地址
-        String tdxCallBack = "http://www.baidu.com";
+        String tdxCallBack = "HttpClient://www.baidu.com";
 
         Map<String, String> resultMap = new HashMap<String, String>();
 
@@ -324,12 +324,12 @@ public class TDXFaceServiceImpl implements TDXFaceService {
     @Override
     public void deleteMachineRecord(Facedevice device) {
 
-        String urlTemp= "http://"+ device.getIp()+urlDeleteRecord;
+        String urlTemp= "HttpClient://"+ device.getIp()+urlDeleteRecord;
         String body = strDeleteRecord;
 
-        String result = HTTP.postForm(urlTemp , body);
+        String result = HttpClient.postForm(urlTemp , body);
 
-        logger.info("=====tdx 删除识别记录 http response:"+result+"");
+        logger.info("=====tdx 删除识别记录 HttpClient response:"+result+"");
         JSONObject jsonObject = JSONObject.parseObject(result);
     }
 
