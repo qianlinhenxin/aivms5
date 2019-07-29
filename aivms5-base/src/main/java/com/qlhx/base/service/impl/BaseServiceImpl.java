@@ -1,14 +1,12 @@
 package com.qlhx.base.service.impl;
 
-
-import com.qlhx.base.bean.BaseBean;
-import com.qlhx.base.bean.PageBean;
-import com.qlhx.base.mapper.BaseMapper;
+import com.qhlx.core.bean.BaseBean;
+import com.qhlx.core.mapper.BaseMapper;
+import com.qhlx.core.util.IDUtil;
+import com.qhlx.core.util.bean.BeanUtil;
 import com.qlhx.base.service.BaseService;
-import com.qlhx.base.util.bean.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -90,25 +88,28 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
      */
     @Override
     public int insert(T model) {
+        if(model.getSid() == null){
+            model.setSid(IDUtil.getId());
+        }
         if(model.getCreateUser() == null){
-            model.setCreateUser(1L);
+            model.setCreateUser(0L);
         }
         if(model.getCreateName() == null){
-            model.setCreateName("default");
+            model.setCreateName("N/A");
         }
         if(model.getCreateIp() == null){
             model.setCreateIp("127.0.0.1");
         }
-        if(model.getCreateDate() == null){
-            model.setCreateDate(new Date());
+        if(model.getCreateTime() == null){
+            model.setCreateTime(new Date());
         }
         try {
             int i = getBaseMapper().insert(model);
             logger.info("BaseMapper ====> insert("+modelClassName+" model ), params :"+model.toString());
             return i;
-        }catch (DuplicateKeyException e) {
+        }catch (RuntimeException e) {
             e.printStackTrace();
-            logger.error("重复的主键，"+model.getId());
+            logger.error("重复的主键，"+model.getSid());
         }catch (Exception e) {
             e.printStackTrace();
             logger.error(e.toString());
@@ -147,8 +148,8 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
         if(model.getUpdateIp() == null){
             model.setUpdateIp("127.0.0.1");
         }
-        if(model.getUpdateDate() == null){
-            model.setUpdateDate(new Date());
+        if(model.getUpdateTime() == null){
+            model.setUpdateTime(new Date());
         }
         try {
             int i = getBaseMapper().update(model);
@@ -167,7 +168,7 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
      * @return
      */
     @Override
-    public int updateIgnoreNull(T model) {
+    public int updateBySelective(T model) {
         if(model.getUpdateUser() == null){
             model.setUpdateUser(1L);
         }
@@ -177,11 +178,11 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
         if(model.getUpdateIp() == null){
             model.setUpdateIp("127.0.0.1");
         }
-        if(model.getUpdateDate() == null){
-            model.setUpdateDate(new Date());
+        if(model.getUpdateTime() == null){
+            model.setUpdateTime(new Date());
         }
         try {
-            int i = getBaseMapper().updateIgnoreNull(model);
+            int i = getBaseMapper().updateBySelective(model);
             logger.info("BaseMapper ====> updateIgnoreNull("+modelClassName+" model ), params :"+model.toString());
             return i;
         }catch (Exception e) {
@@ -193,14 +194,14 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
 
     /**
      * 根据ID删除
-     * @param id
+     * @param sid
      * @return
      */
     @Override
-    public int deleteById(Long id) {
+    public int deleteByPrimaryKey(Long sid) {
         try {
-            int i = getBaseMapper().deleteById(id);
-            logger.info("BaseMapper ====> deleteById(Long id), params : id= "+id);
+            int i = getBaseMapper().deleteByPrimaryKey(sid);
+            logger.info("BaseMapper ====> deleteById(Long id), params : id= "+sid);
             return i;
         }catch (Exception e) {
             e.printStackTrace();
@@ -283,7 +284,7 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
     @Override
     public T findById(Long id) {
         try {
-            T model = getBaseMapper().findById(id);
+            T model = getBaseMapper().findByPrimaryKey(id);
             logger.info("BaseMapper ====> findById(Long d),params :"+id);
             return model;
         }catch (Exception e) {
@@ -309,76 +310,5 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
             logger.error(e.toString());
         }
         return null;
-    }
-
-    @Override
-    public PageBean<List<T>> findByPage(Map<String, Object> params) {
-        try {
-            PageBean page = new PageBean();
-            int pageNum =1;
-            int pageSize =10;
-            if (params.containsKey("pageNum")) {
-                if (params.get("pageNum")!=null && !params.get("pageNum").toString().trim().equals("")) {
-                    pageNum = Integer.parseInt(params.get("pageNum").toString());
-                }
-            }
-            if (params.containsKey("pageSize")) {
-                if (params.get("pageSize")!=null && !params.get("pageSize").toString().trim().equals("")) {
-                    pageSize = Integer.parseInt(params.get("pageSize").toString());
-                }
-            }
-            page.setPageSize(pageSize);
-            page.setPageNum(pageNum);
-            //起始行，算出上次结束位置
-            page.setStartRow(page.getPageNum()-1*page.getPageSize());
-            Integer count = getBaseMapper().count();
-            page.setPages(count%page.getPageNum() != 0?count/page.getPageNum()+1:count/page.getPageNum());
-            page.setResultData(getBaseMapper().findByPage(params));
-            logger.info("BaseMapper ====> findByPage(Map<String, Object> params),params :"+params.toString());
-            return page;
-        }catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-        }
-        return null;
-    }
-
-    public PageBean<List<T>> findByPage(T model) {
-        try {
-            PageBean page = new PageBean();
-            int pageNum =1;
-            int pageSize =10;
-            if (model.getPageNum() != null) {
-                pageNum =model.getPageNum();
-            }
-            if (model.getPageSize() != null) {
-                pageSize =model.getPageSize();
-            }
-            page.setPageSize(pageSize);
-            page.setPageNum(pageNum);
-            //起始行，算出上次结束位置
-            page.setStartRow((page.getPageNum()-1)*page.getPageSize());
-            page.setTotal(getBaseMapper().count());
-            page.setPages(page.getTotal()%page.getPageNum() != 0 ? page.getTotal()/page.getPageNum()+1:page.getTotal()/page.getPageNum());
-            page.setResultData(getBaseMapper().findByPage2(model));
-            logger.info("BaseMapper ====> findByPage("+modelClassName+" model),params :"+model.toString());
-            return page;
-        }catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-        }
-        return null;
-    }
-
-    public Integer count(){
-        try {
-            Integer i = getBaseMapper().count();
-            logger.info("BaseMapper ====> count()");
-            return i;
-        }catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.toString());
-        }
-        return 0;
     }
 }

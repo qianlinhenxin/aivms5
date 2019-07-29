@@ -1,12 +1,14 @@
 package com.qlhx.base.api.impl;
 
-import com.qlhx.base.bean.BaseBean;
-import com.qlhx.base.bean.PageBean;
+import com.qhlx.core.bean.BaseBean;
+import com.qhlx.core.bean.Code;
+import com.qhlx.core.page.PageDTO;
+import com.qhlx.core.page.PageDTOUtil;
+import com.qhlx.core.util.bean.BeanUtil;
+import com.qhlx.core.util.bean.ObjectUtil;
+import com.qhlx.core.util.web.ApiResponse;
+import com.qhlx.core.vo.BaseVO;
 import com.qlhx.base.service.BaseService;
-import com.qlhx.base.util.bean.BeanUtil;
-import com.qlhx.base.util.bean.ObjectUtil;
-import com.qlhx.base.util.web.ApiResponse;
-import com.qlhx.base.vo.BaseVO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,11 +71,13 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
             if (result!=null && result > 0) {
                 ApiResponse.setRetContent(result);
             }else{
-                ApiResponse.setRetCode("");
+                ApiResponse.setCode(Code.FAILURE);
             }
+            logger.info("{} ---->save , params:{}",getBaseService().getClass().getName(),ObjectUtil.toString(vo));
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
         }
         return ApiResponse;
     }
@@ -87,38 +91,51 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
             if (result > 0) {
                 ApiResponse.setRetContent(result);
             }else{
-                ApiResponse.setRetCode("");
+                ApiResponse.setCode(Code.FAILURE);
             }
+            logger.info("{} ---->update , params:{}",getBaseService().getClass().getName(),ObjectUtil.toString(vo));
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
         }
         return ApiResponse;
     }
 
-    @RequestMapping(value="/updateIgnoreNull", method = RequestMethod.POST)
-    public ApiResponse<Integer> updateIgnoreNull(@RequestBody VO vo) {
+    /**
+     * 忽略空值更新
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value="/updateBySelective", method = RequestMethod.POST)
+    public ApiResponse<Integer> updateBySelective(@RequestBody VO vo) {
         ApiResponse<Integer> ApiResponse = new ApiResponse<>();
         try {
             Model model = ObjectUtil.copy(vo, modelClass);
-            Integer result = getBaseService().updateIgnoreNull(model);
+            Integer result = getBaseService().updateBySelective(model);
             if (result > 0) {
                 ApiResponse.setRetContent(result);
             }else{
-                ApiResponse.setRetCode("");
+                ApiResponse.setCode(Code.FAILURE);
             }
+            logger.info("{} ---->updateIgnoreNull , params:{}",getBaseService().getClass().getName(),ObjectUtil.toString(vo));
         }  catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
         }
         return ApiResponse;
     }
 
+    /**
+     * 分页查询
+     * @param params
+     * @return
+     */
     @RequestMapping(value = "/findByPage", method = RequestMethod.POST)
-    public ApiResponse<PageBean<VO>> findByPage(@RequestBody Map<String, Object> params) {
-        ApiResponse<PageBean<VO>> ApiResponse = new ApiResponse<>();
+    public ApiResponse<PageDTO<VO>> findByPage(@RequestBody Map<String, Object> params) {
+        ApiResponse<PageDTO<VO>> ApiResponse = new ApiResponse<>();
         try {
-            logger.info("findByPage params:" + params);
             int pageNum =1;
             int pageSize =10;
             if (params.containsKey("pageNum")) {
@@ -131,20 +148,25 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
                     pageSize = Integer.parseInt(params.get("pageSize").toString());
                 }
             }
+            PageDTOUtil.startPage(pageNum, pageSize);
             List<Model> modelList = getBaseService().findByParams(params);
             List<VO> voList =  ObjectUtil.copyList(modelList, voClass);
-            PageBean<VO> voPageBean = new PageBean<>();
-            voPageBean.setPageNum(pageNum);
-            voPageBean.setPageSize(pageSize);
-            voPageBean.setResultData(voList);
-            ApiResponse.setRetContent(voPageBean);
+            PageDTO<VO> pages = PageDTOUtil.transform(voList);
+            logger.info("{} ---->findByPage , params:{}",getBaseService().getClass().getName(),params);
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
+        }finally {
+            PageDTOUtil.endPage();
         }
         return ApiResponse;
     }
 
+    /**
+     * 查询全部
+     * @return
+     */
     @RequestMapping(value = "/findAll")
     public ApiResponse<List<VO>> findAll() {
         ApiResponse<List<VO>> ApiResponse = new ApiResponse<>();
@@ -152,41 +174,62 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
             List<Model> modelList = getBaseService().findAll();
             List<VO> voList = ObjectUtil.copyList(modelList, voClass);
             ApiResponse.setRetContent(voList);
+            logger.info("{} ---->findAll , params:{}",getBaseService().getClass().getName(),"");
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
             logger.error(e.getMessage());
         }
         return ApiResponse;
     }
 
+    /**
+     * 根据sid来查询数据
+     * @param sid
+     * @return
+     */
     @RequestMapping(value = "/findByPrimaryKey")
-    public ApiResponse<VO> findByPrimaryKey(@RequestParam("id")  Long id) {
+    public ApiResponse<VO> findByPrimaryKey(@RequestParam("sid")  Long sid) {
         ApiResponse<VO> ApiResponse = new ApiResponse<>();
         try {
-            Model model = getBaseService().findById(id);
+            Model model = getBaseService().findById(sid);
             VO vo = ObjectUtil.copy(model, voClass);
             ApiResponse.setRetContent(vo);
+            logger.info("{} ---->findByPrimaryKey , sid:{}",getBaseService().getClass().getName(),sid);
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
         }
         return ApiResponse;
     }
 
+    /**
+     * 根据主键删除数据
+     * @param sid
+     * @return
+     */
     @RequestMapping(value = "/deleteByPrimaryKey")
-    public ApiResponse<Integer> deleteByPrimaryKey(@RequestParam("id")  Long id) {
+    public ApiResponse<Integer> deleteByPrimaryKey(@RequestParam("sid")  Long sid) {
         ApiResponse<Integer> ApiResponse = new ApiResponse<>();
         try {
-            int count = getBaseService().deleteById(id);
+            int count = getBaseService().deleteByPrimaryKey(sid);
             ApiResponse.setRetContent(count);
+            logger.info("{} ---->deleteByPrimaryKey , sid:{}",getBaseService().getClass().getName(),sid);
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
         }
         return ApiResponse;
     }
 
+    /**
+     * 根据map参数来查询
+     * @param params
+     * @return
+     */
     @RequestMapping(value = "/findByParams")
     public ApiResponse<List<VO>> findByParams(@RequestBody Map<String, Object> params) {
         ApiResponse<List<VO>> ApiResponse = new ApiResponse<>();
@@ -194,11 +237,79 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
             List<Model> modelList = getBaseService().findByParams(params);
             List<VO> voList = ObjectUtil.copyList(modelList, voClass);
             ApiResponse.setRetContent(voList);
+            logger.info("{} ---->findByParams , params:{}",getBaseService().getClass().getName(),params);
         } catch (Exception e) {
             e.printStackTrace();
-            ApiResponse.setRetCode("500");
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
         }
         return ApiResponse;
     }
+
+
+    /**
+     * 根据对象来查询数据
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value = "/findByObject")
+    public ApiResponse<List<VO>> findByObject(@RequestBody VO vo) {
+        ApiResponse<List<VO>> ApiResponse = new ApiResponse<>();
+        try {
+            Map<String, Object> objectMap = ObjectUtil.toMap(vo);
+            List<Model> modelList = getBaseService().findByParams(objectMap);
+            List<VO> voList = ObjectUtil.copyList(modelList, voClass);
+            ApiResponse.setRetContent(voList);
+            logger.info("{} ---->findByParams , Object:{}",getBaseService().getClass().getName(),vo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
+        }
+        return ApiResponse;
+    }
+
+
+    /**
+     * 根据对象属性来删除
+     * @param vo
+     * @return
+     */
+    @RequestMapping(value = "/deleteByObject")
+    public ApiResponse<String> deleteByObject(@RequestBody VO vo) {
+        ApiResponse<String> ApiResponse = new ApiResponse<>();
+        try {
+            Map<String, Object> objectMap = ObjectUtil.toMap(vo);
+            getBaseService().delete(ObjectUtil.copy(vo,modelClass));
+            logger.info("{} ---->findByParams , Object:{}",getBaseService().getClass().getName(),vo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
+        }
+        return ApiResponse;
+    }
+
+
+    /**
+     * 根据map参数来删除
+     * @param params
+     * @return
+     */
+    @RequestMapping(value = "/deleteByObject")
+    public ApiResponse<String> deleteByParams(@RequestBody Map<String, Object> params) {
+        ApiResponse<String> ApiResponse = new ApiResponse<>();
+        try {
+            getBaseService().deleteByParams(params);
+            logger.info("{} ---->deleteByParams , params:{}",getBaseService().getClass().getName(),params);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ApiResponse.setCode(Code.SYS_ERROR);
+            ApiResponse.setDesc(e.getMessage());
+        }
+        return ApiResponse;
+    }
+
+
 
 }
