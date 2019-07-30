@@ -1,6 +1,6 @@
 package com.qlhx.service.door.realize.timer;
 
-import com.qlhx.base.util.IConfig;
+import com.qhlx.core.util.IConfig;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
