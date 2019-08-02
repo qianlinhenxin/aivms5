@@ -21,12 +21,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date 2019/7/20 23:34
  * @Description desc:
  */
-@SpringBootApplication(scanBasePackages = {"com.qlhx.service.base.realize.util"})
+@SpringBootApplication(scanBasePackages = {"com.qlhx.base.realize"})
 @EnableTransactionManagement
-@EnableFeignClients(basePackages = {"com.qlhx.service.base.api.api"})
-@ComponentScan(basePackages = {"com.qlhx.service.base.realize.util"})
+@EnableFeignClients(basePackages = {"com.qlhx.base.api.api"})
+@ComponentScan(basePackages = {"com.qlhx.base","com.qhlx.core"})
 @EnableEurekaClient
-@MapperScan({"com.qlhx.service.user.realize.mapper"})
+@MapperScan({"com.qlhx.base.realize.mapper"})
 @RefreshScope
 public class BaseServerApplication {
     private static Logger logger = LoggerFactory.getLogger(BaseServerApplication.class);
