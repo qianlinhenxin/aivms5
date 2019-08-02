@@ -6,16 +6,15 @@
         <artifactId>aivms5-parent</artifactId>
         <groupId>com.qlhx</groupId>
         <version>1.0.0</version>
-        <relativePath>../aivms5-parent/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>aivms5-register-center</artifactId>
     <packaging>pom</packaging>
 
     <modules>
-        <module>center-one</module>
-        <module>center-three</module>
-        <module>center-tow</module>
+        <module>center-1</module>
+        <module>center-2</module>
+        <module>center-3</module>
     </modules>
 
     <dependencies>

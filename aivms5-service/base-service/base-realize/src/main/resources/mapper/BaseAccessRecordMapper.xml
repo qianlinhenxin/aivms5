@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qlhx.service.base.realize.mapper.BaseAccessRecordMapper">
-  <resultMap id="BaseResultMap" type="com.qlhx.service.base.realize.model.BaseAccessRecord">
+  <resultMap id="BaseResultMap" type="com.qlhx.service.base.realize.bean.BaseAccessRecord">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="parentID" jdbcType="INTEGER" property="parentid" />
     <result column="rCode" jdbcType="VARCHAR" property="rcode" />
@@ -35,14 +35,14 @@
     <result column="uname" jdbcType="VARCHAR" property="uname" />
   </resultMap>
   
-  <resultMap id="ResultAccessRecord" type="com.qlhx.service.base.realize.model.BaseAccessRecord"
+  <resultMap id="ResultAccessRecord" type="com.qlhx.service.base.realize.bean.BaseAccessRecord"
 		extends="BaseResultMap">
 		
 		<association property="visitor" column="vID"
-                     javaType="com.qlhx.service.base.realize.model.BaseVisitor" select="com.qlhx.dao.BaseVisitorMapper.selectByPrimaryKey">
+                     javaType="com.qlhx.service.base.realize.bean.BaseVisitor" select="com.qlhx.dao.BaseVisitorMapper.selectByPrimaryKey">
 		</association>
 		
-		<association property="user" column="uID" javaType="com.qlhx.service.base.realize.model.BaseMember"
+		<association property="user" column="uID" javaType="com.qlhx.service.base.realize.bean.BaseMember"
 		    select="com.qlhx.dao.BaseMemberMapper.selectByPrimaryKey">
 			<id column="id" property="id" jdbcType="BIGINT" />
 			<result column="nickname" property="nickname" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
 	</select>
 
     <!-- 门禁卡是否被占用 -->
-    <select id="selectByCardNum" resultType="com.qlhx.service.base.realize.model.BaseAccessRecord">
+    <select id="selectByCardNum" resultType="com.qlhx.service.base.realize.bean.BaseAccessRecord">
 		SELECT * FROM
 		base_access_record WHERE CardNum=#{cardNum} AND status=0
 	</select>
@@ -94,7 +94,7 @@
     delete from base_access_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.qlhx.service.base.realize.model.BaseAccessRecord">
+  <insert id="insert" parameterType="com.qlhx.service.base.realize.bean.BaseAccessRecord">
     insert into base_access_record (id, parentID, rCode, 
       vID, uID, createTime, 
       startTime, endTime, logOffTime, 
@@ -116,7 +116,7 @@
       #{terminalmanagerid,jdbcType=INTEGER}, #{zhuxiaomanagerid,jdbcType=INTEGER}, #{tabtime,jdbcType=TIMESTAMP}, 
       #{uploadtime,jdbcType=TIMESTAMP}, #{syncid,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.qlhx.service.base.realize.model.BaseAccessRecord"
+  <insert id="insertSelective" parameterType="com.qlhx.service.base.realize.bean.BaseAccessRecord"
           useGeneratedKeys="true" keyProperty="id">
     insert into base_access_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -298,7 +298,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.service.base.realize.model.BaseAccessRecord">
+  <update id="updateByPrimaryKeySelective" parameterType="com.qlhx.service.base.realize.bean.BaseAccessRecord">
     update base_access_record
     <set>
       <if test="parentid != null">
@@ -388,7 +388,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qlhx.service.base.realize.model.BaseAccessRecord">
+  <update id="updateByPrimaryKey" parameterType="com.qlhx.service.base.realize.bean.BaseAccessRecord">
     update base_access_record
     set parentID = #{parentid,jdbcType=INTEGER},
       rCode = #{rcode,jdbcType=VARCHAR},
@@ -447,7 +447,7 @@
 	</if>
   </sql>
   
-  <select id="findAccessRecordPageCount" parameterType="com.qlhx.service.base.realize.model.BaseAccessRecord"
+  <select id="findAccessRecordPageCount" parameterType="com.qlhx.service.base.realize.bean.BaseAccessRecord"
 		resultType="java.lang.Integer">
 		SELECT COUNT(0) FROM base_access_record r LEFT JOIN base_visitor v ON
 		r.vID=v.id
@@ -478,7 +478,7 @@
 		</where>
 	</select>
 	
-	<select id="findAccessRecord" parameterType="com.qlhx.service.base.realize.model.BaseAccessRecord"
+	<select id="findAccessRecord" parameterType="com.qlhx.service.base.realize.bean.BaseAccessRecord"
 		resultMap="ResultAccessRecord">
 		SELECT r.*,v.pinYin FROM base_access_record r LEFT JOIN base_visitor v ON
 		r.vID=v.id

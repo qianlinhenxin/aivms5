@@ -9,13 +9,12 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-
     <modules>
         <module>../aivms5-register-center</module>
         <module>../aivms5-web</module>
         <module>../aivms5-service</module>
-        <module>../avims5-config</module>
         <module>../aivms5-base</module>
+        <module>../aivms5-cofig-center</module>
     </modules>
 
     <properties>
