@@ -19,6 +19,9 @@
         <module>base-service</module>
         <module>logger-service</module>
         <module>wechat-service</module>
+        <module>device-service</module>
+        <module>hardware-service</module>
+        <module>control-service</module>
     </modules>
 
     <dependencies>

@@ -16,6 +16,10 @@
         <module>auth-web</module>
         <module>base-web</module>
         <module>gateway</module>
+        <module>control-web</module>
+        <module>device-web</module>
+        <module>hardware-web</module>
+        <module>logger-web</module>
     </modules>
 
     <dependencies>
@@ -49,7 +53,7 @@
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.qlhx</groupId>
+            <groupId>com.qlhx.aivms5</groupId>
             <artifactId>aivms5-base</artifactId>
             <version>${project.version}</version>
         </dependency>
