@@ -1,5 +1,7 @@
 package com.qhlx.core.bean;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -13,88 +15,6 @@ import java.util.List;
  * @description
  *      分页对象
  */
-public class PageBean<T> {
-    /**
-     * 页码，从1开始
-     */
-    private int pageNum;
-    /**
-     * 页面大小
-     */
-    private int pageSize;
-    /**
-     * 起始行
-     */
-    private int startRow;
-    /**
-     * 总数
-     */
-    private Integer total;
-    /**
-     * 总页数
-     */
-    private Integer pages;
-    /**
-     * 返回数据
-     */
-    private List<T> resultData;
+public class PageBean<T> extends PageInfo<T> {
 
-
-    private T requestData;
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getStartRow() {
-        return startRow;
-    }
-
-    public void setStartRow(int startRow) {
-        this.startRow = startRow;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public Integer getPages() {
-        return pages;
-    }
-
-    public void setPages(Integer pages) {
-        this.pages = pages;
-    }
-
-    public List<T> getResultData() {
-        return resultData;
-    }
-
-    public void setResultData(List<T> resultData) {
-        this.resultData = resultData;
-    }
-
-    public T getRequestData() {
-        return requestData;
-    }
-
-    public void setRequestData(T requestData) {
-        this.requestData = requestData;
-    }
 }

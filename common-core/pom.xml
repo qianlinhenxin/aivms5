@@ -203,12 +203,6 @@
             <artifactId>tools-core</artifactId>
             <version>0.0.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser -->
-        <dependency>
-            <groupId>com.github.jsqlparser</groupId>
-            <artifactId>jsqlparser</artifactId>
-            <version>1.0</version>
-        </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>

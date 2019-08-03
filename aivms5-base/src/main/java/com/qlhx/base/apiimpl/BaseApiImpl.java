@@ -2,8 +2,8 @@ package com.qlhx.base.apiimpl;
 
 import com.qhlx.core.bean.BaseBean;
 import com.qhlx.core.bean.Code;
-import com.qhlx.core.page.PageDTO;
-import com.qhlx.core.page.PageDTOUtil;
+import com.qhlx.core.bean.PageBean;
+import com.qhlx.core.page.PageUtil;
 import com.qhlx.core.util.bean.BeanUtil;
 import com.qhlx.core.util.bean.ObjectUtil;
 import com.qhlx.core.util.web.ApiResponse;
@@ -133,8 +133,8 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
      * @return
      */
     @RequestMapping(value = "/findByPage", method = RequestMethod.POST)
-    public ApiResponse<PageDTO<VO>> findByPage(@RequestBody Map<String, Object> params) {
-        ApiResponse<PageDTO<VO>> ApiResponse = new ApiResponse<>();
+    public ApiResponse<PageBean<VO>> findByPage(@RequestBody Map<String, Object> params) {
+        ApiResponse<PageBean<VO>> ApiResponse = new ApiResponse<>();
         try {
             int pageNum =1;
             int pageSize =10;
@@ -148,17 +148,15 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
                     pageSize = Integer.parseInt(params.get("pageSize").toString());
                 }
             }
-            PageDTOUtil.startPage(pageNum, pageSize);
+            PageUtil.startPage(pageNum, pageSize);
             List<Model> modelList = getBaseService().findByParams(params);
             List<VO> voList =  ObjectUtil.copyList(modelList, voClass);
-            PageDTO<VO> pages = PageDTOUtil.transform(voList);
+            PageBean<VO> pages = PageUtil.page(voList);
             logger.info("{} ---->findByPage , params:{}",getBaseService().getClass().getName(),params);
         } catch (Exception e) {
             e.printStackTrace();
             ApiResponse.setCode(Code.SYS_ERROR);
             ApiResponse.setDesc(e.getMessage());
-        }finally {
-            PageDTOUtil.endPage();
         }
         return ApiResponse;
     }
