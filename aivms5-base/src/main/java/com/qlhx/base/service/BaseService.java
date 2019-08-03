@@ -46,7 +46,7 @@ public interface BaseService<T> {
      * @param id
      * @return
      */
-    T findById(Long id);
+    T findByPrimaryKey(Long id);
 
     /**
      * 新增

@@ -1,5 +1,6 @@
 package com.qlhx.base.service.impl;
 
+import com.mongodb.DuplicateKeyException;
 import com.qhlx.core.bean.BaseBean;
 import com.qhlx.core.mapper.BaseMapper;
 import com.qhlx.core.util.IDUtil;
@@ -107,7 +108,7 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
             int i = getBaseMapper().insert(model);
             logger.info("BaseMapper ====> insert("+modelClassName+" model ), params :"+model.toString());
             return i;
-        }catch (RuntimeException e) {
+        }catch (DuplicateKeyException e) {
             e.printStackTrace();
             logger.error("重复的主键，"+model.getSid());
         }catch (Exception e) {
@@ -282,7 +283,7 @@ public class BaseServiceImpl<T extends BaseBean> implements BaseService<T> {
      * @return
      */
     @Override
-    public T findById(Long id) {
+    public T findByPrimaryKey(Long id) {
         try {
             T model = getBaseMapper().findByPrimaryKey(id);
             logger.info("BaseMapper ====> findById(Long d),params :"+id);
