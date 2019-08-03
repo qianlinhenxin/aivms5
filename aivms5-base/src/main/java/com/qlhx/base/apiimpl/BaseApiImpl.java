@@ -294,7 +294,7 @@ public class BaseApiImpl<Model extends BaseBean,VO extends BaseVO> {
      * @param params
      * @return
      */
-    @RequestMapping(value = "/deleteByObject")
+    @RequestMapping(value = "/deleteByParams")
     public ApiResponse<String> deleteByParams(@RequestBody Map<String, Object> params) {
         ApiResponse<String> ApiResponse = new ApiResponse<>();
         try {

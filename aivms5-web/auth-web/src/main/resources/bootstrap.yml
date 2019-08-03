@@ -3,7 +3,7 @@ spring:
     allow-bean-definition-overriding: true
   cloud:
     config:
-      name: auth-server   #需要跟git上文件名对应
+      name: auth-server # 需要跟git上文件名对应
       profile: ${spring.profiles.active}
       label: master
       discovery:
@@ -17,7 +17,7 @@ eureka:
   #    enable-self-preservation: false  #自我保护机制 (不推荐关闭)
   client:
     service-url:
-      defaultZone: http://qlhx:qlhx123456@localhost:12001/eureka/
+      defaultZone: http://localhost:12001/eureka/
   #      defaultZone: http://eureka1.com:12001/eureka/,http://eureka2.com:12002/eureka/,http://eureka3.com:12003/eureka/
   instance:
     instance-id: ${spring.application.name}-${server.port} #更改主机显示名称

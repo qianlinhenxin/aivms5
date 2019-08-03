@@ -33,25 +33,35 @@ public class DruidDataSourceConfig {
 	 */
 	private static Logger logger = LoggerFactory.getLogger(DruidDataSourceConfig.class);
 
-	@Value("${spring.datasource.url}")
-	private String dbUrl;
-
-	@Value("${spring.datasource.type}")
-	private String type;
-
-	@Value("${loginUsername}")
+	/**
+	 * 数据库监控页面登录用户名
+	 */
+	@Value("${database.login.name}")
 	private String loginUsername;
 
-	@Value("${loginPassword}")
+	@Value("${database.login.password}")
 	private String loginPassword;
 
-	@Value("${spring.datasource.username}")
+	/**
+	 * 	<---------------------------------------数据库连接相关配置------------------------------------------------>
+	 */
+
+	/**
+	 *数据库连接url
+	 */
+	@Value("${database.datasource.auth.url}")
+	private String dbUrl;
+
+//	@Value("${database.datasource.auth.url}")
+//	private String type;
+
+	@Value("${database.datasource.auth.username}")
 	private String username;
 
-	@Value("${spring.datasource.password}")
+	@Value("${database.datasource.auth.password}")
 	private String password;
 
-	@Value("${spring.datasource.driver-class-name}")
+	@Value("${database.datasource.auth.driver-class-name}")
 	private String driverClassName;
 
 	@Value("${spring.datasource.initialSize}")
@@ -121,7 +131,7 @@ public class DruidDataSourceConfig {
 		datasource.setInitialSize(initialSize);
 		datasource.setMinIdle(minIdle);
 		datasource.setMaxActive(maxActive);
-		//datasource.setDbType(type);
+        //datasource.setDbType(type);
 		datasource.setMaxWait(maxWait);
 		datasource.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
 		datasource.setMinEvictableIdleTimeMillis(minEvictableIdleTimeMillis);
@@ -131,6 +141,7 @@ public class DruidDataSourceConfig {
 		datasource.setTestOnReturn(testOnReturn);
 		try {
 			datasource.setFilters(filters);
+			logger.info("<-------------------initialization datasource------------------->");
 		} catch (SQLException e) {
 			logger.error("druid configuration initialization filter", e);
 		}

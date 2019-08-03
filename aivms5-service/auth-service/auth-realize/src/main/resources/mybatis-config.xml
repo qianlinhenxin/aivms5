@@ -3,9 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties>
-        <property name="dialect" value="mysql"/>
-    </properties>
     <settings>
         <!-- 这个配置使全局的映射器启用或禁用缓存。系统默认值是true -->
         <setting name="cacheEnabled" value="true"/>
@@ -47,6 +44,8 @@
             <property name="supportMethodsArguments" value="false"/>
             <!-- always总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page -->
             <property name="returnPageInfo" value="none"/>
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL 六种数据库-->
+<!--            <property name="dialect" value="PostgreSQL"/>-->
         </plugin>
     </plugins>
 </configuration>

@@ -21,11 +21,9 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @description
  */
 @EnableEurekaClient
-@SpringBootApplication
-@EnableFeignClients(basePackages = {"com.qlhx.service.auth.api.api"})
-@ComponentScan(basePackages = {"com.qlhx.base"})
-@ServletComponentScan
-@EnableAspectJAutoProxy(exposeProxy=true)
+@SpringBootApplication(scanBasePackages = {"com.qlhx.web.auth"})
+@EnableFeignClients(basePackages = {"com.qlhx.auth.api.api"})
+@ComponentScan(basePackages = {"com.qhlx.core"})
 public class AuthWebApplication {
 
     private static Logger logger = LoggerFactory.getLogger(AuthWebApplication.class);
