@@ -19,13 +19,13 @@ eureka:
   #    enable-self-preservation: false  #自我保护机制 (不推荐关闭)
   client:
     service-url:
-        defaultZone: http://qlhx:qlhx123456@localhost:12001/eureka/
-#      defaultZone: http://eureka1.com:12001/eureka/,http://eureka2.com:12002/eureka/,http://eureka3.com:12003/eureka/
+      defaultZone: http://qlhx:qlhx123456@localhost:12001/eureka/
+  #      defaultZone: http://eureka1.com:12001/eureka/,http://eureka2.com:12002/eureka/,http://eureka3.com:12003/eureka/
   instance:
-    instance-id: ${spring.application.name} #更改主机显示名称
+    instance-id: ${spring.application.name}:${server.port} #更改主机显示名称
     prefer-ip-address: true #显示IP
 
 login:
-    user:
-      name: xigexb
-      password: 81196xigexb
+  user:
+    name: xigexb
+    password: 81196xigexb
