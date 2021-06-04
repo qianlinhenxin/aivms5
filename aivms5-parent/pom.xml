@@ -37,7 +37,7 @@
         <hadoop-version>3.2.0</hadoop-version>
         <lang-version>3.8.1</lang-version>
         <collections-version>3.2.2</collections-version>
-        <http-client>4.5.7</http-client>
+        <http-client>4.5.13</http-client>
 
 
         <!--spring-->
