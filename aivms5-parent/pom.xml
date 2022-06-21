@@ -57,7 +57,7 @@
 
         <!-- mysql -->
         <mysql.version>5.1.47</mysql.version>
-        <mysql.version-8>8.0.16</mysql.version-8>
+        <mysql.version-8>8.0.28</mysql.version-8>
 
     </properties>
 
