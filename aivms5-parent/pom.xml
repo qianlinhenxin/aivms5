@@ -41,7 +41,7 @@
 
 
         <!--spring-->
-        <spring-web>5.1.5.RELEASE</spring-web>
+        <spring-web>6.0.0</spring-web>
 
         <!--project-->
         <base-version>1.0.0</base-version>
